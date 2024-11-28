@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.cinemate"
+    namespace = "com.cinemate.app"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.cinemate"
+        applicationId = "com.cinemate.app"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
