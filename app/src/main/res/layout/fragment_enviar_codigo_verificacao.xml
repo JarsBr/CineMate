@@ -1,13 +1,81 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cinemate.app.ui.fragments.login.EnviarCodigoVerificacaoFragment">
+    android:background="#090F13"
+    tools:context="com.cinemate.app.ui.fragments.login.LoginFragment"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="-7dp">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/enviarCodText"
+        android:layout_width="289dp"
+        android:layout_height="82dp"
+        android:layout_marginBottom="28dp"
+        android:text="Informe seu email para envio do código para recuperação da sua senha."
+        android:textAlignment="viewStart"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/emailLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/btnEnviarCod"
+        android:layout_width="229dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="236dp"
+        android:backgroundTint="#FF0000"
+        android:padding="12dp"
+        android:text="Enviar Código"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="200dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="Logo Cinemate"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/enviarCodText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.493" />
+
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="262dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#E0E0E0"
+        android:hint="Digite seu email"
+        android:padding="12dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#A0A0A0"
+        app:layout_constraintBottom_toTopOf="@+id/btnEnviarCod"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/emailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="Email"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/emailInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.199"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

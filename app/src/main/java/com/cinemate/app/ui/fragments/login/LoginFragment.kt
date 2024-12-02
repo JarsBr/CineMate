@@ -4,77 +4,70 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.cinemate.app.R
+import com.cinemate.app.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
 
-    private lateinit var emailInput: EditText
-    private lateinit var passwordInput: EditText
-    private lateinit var loginButton: Button
-    private lateinit var forgotPasswordText: TextView
-    private lateinit var registerText: TextView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
+    ): View {
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        emailInput = view.findViewById(R.id.emailInput)
-        passwordInput = view.findViewById(R.id.passwordInput)
-        loginButton = view.findViewById(R.id.btnLogin)
-        forgotPasswordText = view.findViewById(R.id.forgotPassword)
-        registerText = view.findViewById(R.id.registerText)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        // ação de login
-        loginButton.setOnClickListener {
+        // Navegação para "Esqueci minha senha"
+        binding.forgotPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+        }
+
+        // Navegação para "Cadastro"
+        binding.registerText.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_cadastroFragment)
+        }
+
+        // Lógica do botão de login
+        binding.btnLogin.setOnClickListener {
             handleLogin()
         }
-
-        // enviar ao EnviarCodigoVerificacaoFragment
-        forgotPasswordText.setOnClickListener {
-            Toast.makeText(context, "Redirecionar para a recuperação de senha", Toast.LENGTH_SHORT).show()
-        }
-
-        // enviar ao CadastroFragment
-        registerText.setOnClickListener {
-            Toast.makeText(context, "Redirecionar para o cadastro", Toast.LENGTH_SHORT).show()
-        }
-
-        return view
     }
 
     private fun handleLogin() {
-        val email = emailInput.text.toString().trim()
-        val password = passwordInput.text.toString().trim()
+        val email = binding.emailInput.text.toString().trim()
+        val password = binding.passwordInput.text.toString().trim()
 
         if (email.isEmpty()) {
-            emailInput.error = "Por favor, insira seu email"
-            emailInput.requestFocus()
+            binding.emailInput.error = "Por favor, insira seu email"
+            binding.emailInput.requestFocus()
             return
         }
 
         if (password.isEmpty()) {
-            passwordInput.error = "Por favor, insira sua senha"
-            passwordInput.requestFocus()
+            binding.passwordInput.error = "Por favor, insira sua senha"
+            binding.passwordInput.requestFocus()
             return
         }
 
-        //  substituir pelo authentication do firebase
         if (email == "admin@example.com" && password == "password") {
             Toast.makeText(context, "Login bem-sucedido!", Toast.LENGTH_SHORT).show()
-            // fazer redirecionar para outra activity (UserDashboardActivity ou AdminDashboardActivity)
+            // Redirecionar para activity do dashboard
         } else {
             Toast.makeText(context, "Email ou senha inválidos", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
