@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.cinemate.app.R
 import com.cinemate.app.databinding.FragmentCadastroBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 class CadastroFragment : Fragment() {
@@ -104,8 +107,39 @@ class CadastroFragment : Fragment() {
             return
         }
 
-        // Implementar lógica para salvar os dados no Firebase e redirecionar para o Login
-        Toast.makeText(context, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show()
+        // Criar usuário no Firebase Authentication
+        val auth = FirebaseAuth.getInstance()
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val currentUser = auth.currentUser
+                    val userId = currentUser?.uid
+
+                    // Salvar dados no Firestore
+                    val db = FirebaseFirestore.getInstance()
+                    val userDocument = db.collection("usuarios").document(userId ?: "")
+
+                    val userData = mapOf(
+                        "nome" to name,
+                        "email" to email,
+                        "data_nascimento" to dateOfBirth,
+                        "tipo_usuario" to "user", // Definido como 'user' por padrão
+                        "filmes_favoritos" to listOf<String>() // Array vazio
+                    )
+
+                    userDocument.set(userData).addOnCompleteListener { dbTask ->
+                        if (dbTask.isSuccessful) {
+                            Toast.makeText(context, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(R.id.action_cadastroFragment_to_loginFragment)
+
+                        } else {
+                            Toast.makeText(context, "Erro ao salvar os dados: ${dbTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(context, "Erro no cadastro: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     override fun onDestroyView() {
