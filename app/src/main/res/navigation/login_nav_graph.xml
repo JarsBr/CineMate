@@ -1,0 +1,80 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.cinemate.app.ui.fragments.login.MainFragment"
+        android:label="Main"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_cadastroFragment"
+            app:destination="@id/cadastroFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.cinemate.app.ui.fragments.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_esqueceuSenhaFragment"
+            app:destination="@id/esqueceuSenhaFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_cadastroFragment"
+            app:destination="@id/cadastroFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cadastroFragment"
+        android:name="com.cinemate.app.ui.fragments.login.CadastroFragment"
+        android:label="Cadastro"
+        tools:layout="@layout/fragment_cadastro" >
+        <action
+            android:id="@+id/action_cadastroFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_cadastroFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/esqueceuSenhaFragment"
+        android:name="com.cinemate.app.ui.fragments.login.EsqueceuSenhaFragment"
+        android:label="Esqueceu Senha"
+        tools:layout="@layout/fragment_esqueceu_senha" >
+        <action
+            android:id="@+id/action_esqueceuSenhaFragment_to_confirmaCodigoFragment"
+            app:destination="@id/confirmaCodigoFragment" />
+        <action
+            android:id="@+id/action_esqueceuSenhaFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/confirmaCodigoFragment"
+        android:name="com.cinemate.app.ui.fragments.login.ConfirmaCodigoFragment"
+        android:label="Confirma Código"
+        tools:layout="@layout/fragment_confirma_codigo" >
+        <action
+            android:id="@+id/action_confirmaCodigoFragment_to_alterarSenhaFragment"
+            app:destination="@id/alterarSenhaFragment" />
+        <action
+            android:id="@+id/action_confirmaCodigoFragment_to_esqueceuSenhaFragment"
+            app:destination="@id/esqueceuSenhaFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/alterarSenhaFragment"
+        android:name="com.cinemate.app.ui.fragments.login.AlterarSenhaFragment"
+        android:label="Alterar Senha"
+        tools:layout="@layout/fragment_alterar_senha" >
+        <action
+            android:id="@+id/action_alterarSenhaFragment_to_confirmaCodigoFragment"
+            app:destination="@id/confirmaCodigoFragment" />
+    </fragment>
+</navigation>

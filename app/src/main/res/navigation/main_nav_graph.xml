@@ -1,0 +1,93 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/feedFragment">
+
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.cinemate.app.ui.fragments.main.FeedFragment"
+        android:label="Feed"
+        tools:layout="@layout/fragment_feed">
+        <action
+            android:id="@+id/action_feedFragment_to_detalhesFilmeFragment"
+            app:destination="@id/detalhesFilmeFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_recomendarFilmeFragment"
+            app:destination="@id/recomendarFilmeFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_minhaListaFragment"
+            app:destination="@id/minhaListaFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_perfilFragment2"
+            app:destination="@id/perfilFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detalhesFilmeFragment"
+        android:name="com.cinemate.app.ui.fragments.main.DetalhesFilmeFragment"
+        android:label="Detalhes do Filme"
+        tools:layout="@layout/fragment_detalhes_filme" >
+        <action
+            android:id="@+id/action_detalhesFilmeFragment_to_publicarReviewFragment"
+            app:destination="@id/publicarReviewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/minhaListaFragment"
+        android:name="com.cinemate.app.ui.fragments.main.MinhaListaFragment"
+        android:label="Minha Lista"
+        tools:layout="@layout/fragment_minha_lista" >
+        <action
+            android:id="@+id/action_minhaListaFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+        <action
+            android:id="@+id/action_minhaListaFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="com.cinemate.app.ui.fragments.main.PerfilFragment"
+        android:label="Perfil"
+        tools:layout="@layout/fragment_perfil" >
+        <action
+            android:id="@+id/action_perfilFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+        <action
+            android:id="@+id/action_perfilFragment_to_alterarDadosFragment"
+            app:destination="@id/alterarDadosFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/alterarDadosFragment"
+        android:name="com.cinemate.app.ui.fragments.main.AlterarDadosFragment"
+        android:label="Alterar Dados"
+        tools:layout="@layout/fragment_alterar_dados" >
+        <action
+            android:id="@+id/action_alterarDadosFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/publicarReviewFragment"
+        android:name="com.cinemate.app.ui.fragments.main.PublicarReviewFragment"
+        android:label="Publicar Review"
+        tools:layout="@layout/fragment_publicar_review" >
+        <action
+            android:id="@+id/action_publicarReviewFragment_to_detalhesFilmeFragment"
+            app:destination="@id/detalhesFilmeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recomendarFilmeFragment"
+        android:name="com.cinemate.app.ui.fragments.main.RecomendarFilmeFragment"
+        android:label="Recomendar Filme"
+        tools:layout="@layout/fragment_recomendar_filme" >
+        <action
+            android:id="@+id/action_recomendarFilmeFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+    </fragment>
+</navigation>
