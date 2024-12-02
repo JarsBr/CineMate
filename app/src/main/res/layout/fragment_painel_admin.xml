@@ -9,29 +9,72 @@
     tools:context="com.cinemate.app.ui.fragments.admin.PainelAdminFragment">
 
 
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="116dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="144dp"
+        android:backgroundTint="#FFFFFF"
+        android:padding="12dp"
+        android:text="Sair"
+        android:textColor="#FF0000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnFilmes"
+        android:layout_width="189dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#FF0000"
+        android:padding="12dp"
+        android:text="Filmes"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnUsuarios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnUsuarios"
+        android:layout_width="189dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="92dp"
+        android:backgroundTint="#FF0000"
+        android:padding="12dp"
+        android:text="Usuários"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
-        android:id="@+id/logoImage3"
-        android:layout_width="187dp"
-        android:layout_height="65dp"
+        android:id="@+id/logoImage"
+        android:layout_width="200dp"
+        android:layout_height="160dp"
         android:layout_marginTop="4dp"
         android:contentDescription="Logo Cinemate"
-        android:src="@drawable/logo_stretched"
+        android:src="@drawable/logo"
         app:layout_constraintBottom_toTopOf="@+id/feedLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.179" />
+        app:layout_constraintVertical_bias="0.47" />
 
     <TextView
         android:id="@+id/feedLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="500dp"
+        android:layout_marginBottom="64dp"
         android:text="Painel Administrativo"
         android:textColor="#FFFFFF"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnFilmes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
