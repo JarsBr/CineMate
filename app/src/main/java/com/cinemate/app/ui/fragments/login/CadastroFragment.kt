@@ -1,60 +1,121 @@
 package com.cinemate.app.ui.fragments.login
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.cinemate.R
+import com.cinemate.app.R
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CadastroFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CadastroFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var nameInput: EditText
+    private lateinit var emailInput: EditText
+    private lateinit var passwordInput: EditText
+    private lateinit var dateInput: EditText
+    private lateinit var registerButton: Button
+    private lateinit var loginText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cadastro, container, false)
+        val view = inflater.inflate(R.layout.fragment_cadastro, container, false)
+
+        nameInput = view.findViewById(R.id.nameInput)
+        emailInput = view.findViewById(R.id.emailInput)
+        passwordInput = view.findViewById(R.id.passwordInput)
+        dateInput = view.findViewById(R.id.dateInput)
+        registerButton = view.findViewById(R.id.btnCadastro)
+        loginText = view.findViewById(R.id.loginText)
+
+        dateInput.setOnClickListener {
+            openDatePicker()
+        }
+
+        // Configurar a ação do botão Cadastre-se
+        registerButton.setOnClickListener {
+            handleRegister()
+        }
+
+        loginText.setOnClickListener {
+            Toast.makeText(context, "Redirecionar para o Fragmento de Login", Toast.LENGTH_SHORT).show()
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CadastroFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CadastroFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun openDatePicker() {
+        // Obtém a data atual
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            R.style.CustomDatePicker,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val formattedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                dateInput.setText(formattedDate)
+            },
+            year,
+            month,
+            day
+        )
+
+        datePickerDialog.window?.apply {
+            setDimAmount(0.95f)
+        }
+
+        // Exibe o DatePicker
+        datePickerDialog.show()
+    }
+
+
+
+    private fun handleRegister() {
+        val name = nameInput.text.toString().trim()
+        val email = emailInput.text.toString().trim()
+        val password = passwordInput.text.toString().trim()
+        val dateOfBirth = dateInput.text.toString().trim()
+
+        if (name.isEmpty()) {
+            nameInput.error = "Por favor, insira seu nome"
+            nameInput.requestFocus()
+            return
+        }
+
+        if (email.isEmpty()) {
+            emailInput.error = "Por favor, insira seu email"
+            emailInput.requestFocus()
+            return
+        }
+
+        if (password.isEmpty()) {
+            passwordInput.error = "Por favor, insira sua senha"
+            passwordInput.requestFocus()
+            return
+        }
+
+        if (dateOfBirth.isEmpty()) {
+            dateInput.error = "Por favor, selecione sua data de nascimento"
+            dateInput.requestFocus()
+            return
+        }
+
+        // implementar lógica para salvar os dados no firebase e depois enviar usuário até o login
+        Toast.makeText(context, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show()
+
     }
 }
