@@ -6,8 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.cinemate.app.R
+import com.cinemate.app.databinding.FragmentConfirmaCodigoBinding
+import com.cinemate.app.databinding.FragmentEsqueceuSenhaBinding
 
 class ConfirmaCodigoFragment : Fragment() {
+
+    private var _binding: FragmentConfirmaCodigoBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,8 +21,33 @@ class ConfirmaCodigoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_confirma_codigo, container, false)
+    ): View {
+        _binding = FragmentConfirmaCodigoBinding.inflate(inflater, container, false)
+        return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnConfirmaCod.setOnClickListener {
+            handleRegister()
+        }
+    }
+
+
+    private fun handleRegister() {
+        val email = binding.codInput.text.toString().trim()
+
+        if (email.isEmpty()) {
+            binding.codInput.error = "Por favor, insira o código de verificação"
+            binding.codInput.requestFocus()
+            return
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
