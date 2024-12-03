@@ -1,4 +1,10 @@
 package com.cinemate.app.data.models
 
-class Response {
-}
+import com.google.firebase.Timestamp
+
+data class Response(
+    val id: String = "",
+    val comentario: String = "",
+    val dataCriacao: Timestamp = Timestamp.now(),
+    val idUsuario: String = ""
+)

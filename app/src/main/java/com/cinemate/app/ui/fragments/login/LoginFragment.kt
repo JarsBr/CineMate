@@ -7,18 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.cinemate.app.R
+import com.cinemate.app.data.repositories.AuthRepository
 import com.cinemate.app.databinding.FragmentLoginBinding
 import com.cinemate.app.ui.activities.AdminDashboardActivity
 import com.cinemate.app.ui.activities.UserDashboardActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
+    // Repositório de autenticação
+    private lateinit var authRepository: AuthRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +36,8 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
 
         binding.forgotPassword.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_esqueceuSenhaFragment)
@@ -60,62 +68,39 @@ class LoginFragment : Fragment() {
             return
         }
 
-
         showLoading(true)
 
-        val auth = FirebaseAuth.getInstance()
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val userId = auth.currentUser?.uid
-                    if (userId != null) {
-                        checkUserType(userId)
-                    } else {
-                        showLoading(false)
-                        Toast.makeText(context, "Erro ao obter dados do usuário.", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    showLoading(false)
-                    val errorMessage = task.exception?.message ?: "Erro desconhecido"
-                    Toast.makeText(context, "Falha no login: $errorMessage", Toast.LENGTH_SHORT).show()
-                }
+        lifecycleScope.launch {
+            val result = authRepository.loginAndCheckUserType(email, password)
+            val authResult = result.first
+            val userType = result.second
+
+            showLoading(false)
+
+            if (authResult != null && userType != null) {
+                handleUserNavigation(userType)
+            } else {
+                Toast.makeText(context, "Falha no login. Verifique suas credenciais.", Toast.LENGTH_SHORT).show()
             }
+        }
     }
 
-    private fun checkUserType(userId: String) {
-        val db = FirebaseFirestore.getInstance()
-        val userRef = db.collection("usuarios").document(userId)
-
-        userRef.get()
-            .addOnSuccessListener { document ->
-                if (document.exists()) {
-                    val userType = document.getString("tipo_usuario")
-                    when (userType) {
-                        "admin" -> {
-                            Toast.makeText(context, "Bem-vindo, Admin!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(requireContext(), AdminDashboardActivity::class.java)
-                            startActivity(intent)
-                            requireActivity().finish()
-                        }
-                        "user" -> {
-                            Toast.makeText(context, "Bem-vindo, Usuário!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(requireContext(), UserDashboardActivity::class.java)
-                            startActivity(intent)
-                            requireActivity().finish()
-                        }
-                        else -> {
-                            Toast.makeText(context, "Tipo de usuário desconhecido.", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                } else {
-                    Toast.makeText(context, "Usuário não encontrado no banco de dados.", Toast.LENGTH_SHORT).show()
-                }
-                showLoading(false)
+    private fun handleUserNavigation(userType: String) {
+        when (userType) {
+            "admin" -> {
+                Toast.makeText(context, "Bem-vindo, Admin!", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(requireContext(), AdminDashboardActivity::class.java))
+                requireActivity().finish()
             }
-            .addOnFailureListener { exception ->
-                showLoading(false)
-                Toast.makeText(context, "Erro ao acessar o Firestore: ${exception.message}", Toast.LENGTH_SHORT).show()
+            "user" -> {
+                Toast.makeText(context, "Bem-vindo, Usuário!", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(requireContext(), UserDashboardActivity::class.java))
+                requireActivity().finish()
             }
+            else -> {
+                Toast.makeText(context, "Tipo de usuário desconhecido.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun showLoading(show: Boolean) {
@@ -130,6 +115,3 @@ class LoginFragment : Fragment() {
         _binding = null
     }
 }
-
-
-
