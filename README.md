@@ -2,7 +2,7 @@
 "CineMate" é um aplicativo móvel desenvolvido para organizar e gerenciar filmes de interesse do usuário, permitindo o registro de informações como título, sinopse, ano, gênero e avaliação pessoal.
 
 
-## Links
+## Links:
 
 - ### [Figma](https://www.figma.com/design/L434M60IcmIGOysjHRS83U/CineMate-App?node-id=0-1&node-type=canvas&t=IjC8FNfSOqKbrU8b-0)
 
