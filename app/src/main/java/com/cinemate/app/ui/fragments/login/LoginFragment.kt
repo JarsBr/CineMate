@@ -75,7 +75,7 @@ class LoginFragment : Fragment() {
                         Toast.makeText(context, "Erro ao obter dados do usuário.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-
+                    showLoading(false)
                     val errorMessage = task.exception?.message ?: "Erro desconhecido"
                     Toast.makeText(context, "Falha no login: $errorMessage", Toast.LENGTH_SHORT).show()
                 }

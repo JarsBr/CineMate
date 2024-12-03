@@ -37,6 +37,7 @@ android {
     viewBinding {
         enable = true
     }
+    buildToolsVersion = "34.0.0"
 }
 
 dependencies {
@@ -55,4 +56,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
 }
