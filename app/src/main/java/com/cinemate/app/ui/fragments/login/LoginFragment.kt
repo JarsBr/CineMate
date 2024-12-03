@@ -1,5 +1,6 @@
 package com.cinemate.app.ui.fragments.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cinemate.app.R
 import com.cinemate.app.databinding.FragmentLoginBinding
+import com.cinemate.app.ui.activities.AdminDashboardActivity
+import com.cinemate.app.ui.activities.UserDashboardActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -28,17 +31,14 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Navegação para "Esqueci minha senha"
         binding.forgotPassword.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_esqueceuSenhaFragment)
         }
 
-        // Navegação para "Cadastro"
         binding.registerText.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_cadastroFragment)
         }
 
-        // Lógica do botão de login
         binding.btnLogin.setOnClickListener {
             handleLogin()
         }
@@ -60,30 +60,26 @@ class LoginFragment : Fragment() {
             return
         }
 
-        // Fazer login com o Firebase Authentication
+
+        showLoading(true)
+
         val auth = FirebaseAuth.getInstance()
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Recuperar UID do usuário logado
                     val userId = auth.currentUser?.uid
                     if (userId != null) {
                         checkUserType(userId)
                     } else {
+                        showLoading(false)
                         Toast.makeText(context, "Erro ao obter dados do usuário.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
+
                     val errorMessage = task.exception?.message ?: "Erro desconhecido"
                     Toast.makeText(context, "Falha no login: $errorMessage", Toast.LENGTH_SHORT).show()
                 }
             }
-
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun checkUserType(userId: String) {
@@ -97,12 +93,15 @@ class LoginFragment : Fragment() {
                     when (userType) {
                         "admin" -> {
                             Toast.makeText(context, "Bem-vindo, Admin!", Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.action_loginFragment_to_painelAdminFragment)
+                            val intent = Intent(requireContext(), AdminDashboardActivity::class.java)
+                            startActivity(intent)
+                            requireActivity().finish()
                         }
                         "user" -> {
-
                             Toast.makeText(context, "Bem-vindo, Usuário!", Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.action_loginFragment_to_feedFragment)
+                            val intent = Intent(requireContext(), UserDashboardActivity::class.java)
+                            startActivity(intent)
+                            requireActivity().finish()
                         }
                         else -> {
                             Toast.makeText(context, "Tipo de usuário desconhecido.", Toast.LENGTH_SHORT).show()
@@ -111,11 +110,26 @@ class LoginFragment : Fragment() {
                 } else {
                     Toast.makeText(context, "Usuário não encontrado no banco de dados.", Toast.LENGTH_SHORT).show()
                 }
+                showLoading(false)
             }
             .addOnFailureListener { exception ->
+                showLoading(false)
                 Toast.makeText(context, "Erro ao acessar o Firestore: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
+
+    private fun showLoading(show: Boolean) {
+        binding.loadingSpinner.visibility = if (show) View.VISIBLE else View.GONE
+        binding.btnLogin.isEnabled = !show
+        binding.registerText.isEnabled = !show
+        binding.forgotPassword.isEnabled = !show
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
 }
 
 

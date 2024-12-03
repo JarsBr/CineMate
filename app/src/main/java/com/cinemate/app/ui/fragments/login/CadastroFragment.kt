@@ -43,7 +43,7 @@ class CadastroFragment : Fragment() {
 
         // Configurar a ação do texto "Login"
         binding.loginText.setOnClickListener {
-            val navController = requireActivity().findNavController(R.id.nav_host_fragment)
+            val navController = requireActivity().findNavController(R.id.nav_host_fragment_main)
             navController.navigate(R.id.action_cadastroFragment_to_loginFragment)
         }
 

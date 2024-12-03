@@ -1,4 +1,4 @@
-package com.cinemate.app.ui.fragments
+package com.cinemate.app.ui.fragments.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
