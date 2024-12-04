@@ -63,6 +63,9 @@
         <action
             android:id="@+id/action_gestaoReviewFragment_to_gestaoFilmeFragment"
             app:destination="@id/gestaoFilmeFragment" />
+        <action
+            android:id="@+id/action_gestaoReviewFragment_to_gestaoRepostasFragment"
+            app:destination="@id/gestaoRepostasFragment" />
     </fragment>
 
     <fragment
@@ -73,5 +76,14 @@
         <action
             android:id="@+id/action_gestaoUsuarioFragment_to_usuariosCadastradosFragment"
             app:destination="@id/usuariosCadastradosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gestaoRepostasFragment"
+        android:name="com.cinemate.app.ui.fragments.admin.GestaoRepostasFragment"
+        android:label="fragment_gestao_repostas"
+        tools:layout="@layout/fragment_gestao_repostas" >
+        <action
+            android:id="@+id/action_gestaoRepostasFragment_to_gestaoReviewFragment"
+            app:destination="@id/gestaoReviewFragment" />
     </fragment>
 </navigation>

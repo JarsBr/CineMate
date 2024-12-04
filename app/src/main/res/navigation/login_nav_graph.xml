@@ -55,26 +55,4 @@
             app:destination="@id/loginFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/confirmaCodigoFragment"
-        android:name="com.cinemate.app.ui.fragments.login.ConfirmaCodigoFragment"
-        android:label="Confirma Código"
-        tools:layout="@layout/fragment_confirma_codigo" >
-        <action
-            android:id="@+id/action_confirmaCodigoFragment_to_alterarSenhaFragment"
-            app:destination="@id/alterarSenhaFragment" />
-        <action
-            android:id="@+id/action_confirmaCodigoFragment_to_esqueceuSenhaFragment"
-            app:destination="@id/esqueceuSenhaFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/alterarSenhaFragment"
-        android:name="com.cinemate.app.ui.fragments.login.AlterarSenhaFragment"
-        android:label="Alterar Senha"
-        tools:layout="@layout/fragment_alterar_senha" >
-        <action
-            android:id="@+id/action_alterarSenhaFragment_to_confirmaCodigoFragment"
-            app:destination="@id/confirmaCodigoFragment" />
-    </fragment>
 </navigation>

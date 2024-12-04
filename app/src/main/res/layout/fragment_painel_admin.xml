@@ -26,8 +26,8 @@
 
     <Button
         android:id="@+id/btnFilmes"
-        android:layout_width="189dp"
-        android:layout_height="51dp"
+        android:layout_width="190dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="32dp"
         android:backgroundTint="#FF0000"
         android:padding="12dp"
@@ -40,8 +40,8 @@
 
     <Button
         android:id="@+id/btnUsuarios"
-        android:layout_width="189dp"
-        android:layout_height="51dp"
+        android:layout_width="190dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="92dp"
         android:backgroundTint="#FF0000"
         android:padding="12dp"

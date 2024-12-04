@@ -30,7 +30,7 @@ class EsqueceuSenhaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnEnviarCod.setOnClickListener {
+        binding.btnEnviar.setOnClickListener {
             handleRegister()
         }
     }

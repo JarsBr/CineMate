@@ -37,7 +37,6 @@ object FileUtils {
         return file
     }
 
-    // Obtém o nome do arquivo a partir da URI
     private fun getFileName(contentResolver: ContentResolver, uri: Uri): String? {
         var name: String? = null
         if (uri.scheme == "content") {

@@ -17,7 +17,7 @@
         android:layout_marginTop="4dp"
         android:contentDescription="Logo Cinemate"
         android:src="@drawable/logo"
-        app:layout_constraintBottom_toTopOf="@+id/enviarCodText"
+        app:layout_constraintBottom_toTopOf="@+id/enviarText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,13 +25,13 @@
         app:layout_constraintVertical_bias="0.711" />
 
     <Button
-        android:id="@+id/btnEnviarCod"
+        android:id="@+id/btnEnviar"
         android:layout_width="229dp"
         android:layout_height="52dp"
         android:layout_marginBottom="232dp"
         android:backgroundTint="#FF0000"
         android:padding="12dp"
-        android:text="Enviar Código"
+        android:text="Enviar"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -52,11 +52,11 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/enviarCodText"
+        android:id="@+id/enviarText"
         android:layout_width="263dp"
         android:layout_height="65dp"
         android:layout_marginBottom="36dp"
-        android:text="Informe seu email para envio do código para recuperação da sua senha."
+        android:text="Informe seu email para envio do link para recuperação da sua senha."
         android:textAlignment="viewStart"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
@@ -74,7 +74,7 @@
         android:padding="12dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#A0A0A0"
-        app:layout_constraintBottom_toTopOf="@+id/btnEnviarCod"
+        app:layout_constraintBottom_toTopOf="@+id/btnEnviar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />

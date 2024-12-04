@@ -9,12 +9,10 @@ object Constants {
         "Drama",
         "Fantasia",
         "Ficção Científica",
-        "Horror",
         "Terror",
-        "Musical",
+        "Horror",
         "Romance",
         "Suspense",
-        "Guerra",
         "Mistério",
         "Animação"
     )

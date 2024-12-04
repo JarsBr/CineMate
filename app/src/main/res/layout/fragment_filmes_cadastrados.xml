@@ -8,32 +8,6 @@
     android:background="#090F13"
     tools:context="com.cinemate.app.ui.fragments.admin.FilmesCadastradosFragment">
 
-
-    <ImageButton
-        android:id="@+id/btnUpload"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="232dp"
-        android:background="@drawable/btn_ripple_effect"
-        android:contentDescription="Botão de adicionar imagem"
-        android:src="@drawable/ic_upload"
-        app:layout_constraintBottom_toTopOf="@+id/btnAdd"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/imagemLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="Teste Upload:"
-        android:textColor="#FF0000"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnUpload"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="187dp"
@@ -46,17 +20,17 @@
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.21" />
+        app:layout_constraintVertical_bias="0.508" />
 
     <TextView
         android:id="@+id/filmesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="116dp"
+        android:layout_marginBottom="496dp"
         android:text="Filmes Cadastrados"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/imagemLabel"
+        app:layout_constraintBottom_toTopOf="@+id/btnAdd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

@@ -23,7 +23,6 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    // Repositório de autenticação
     private lateinit var authRepository: AuthRepository
 
     override fun onCreateView(

@@ -1,6 +1,5 @@
 package com.cinemate.app.data.models
 
-
 data class Movie(
     val id: String = "",
     val ano: Int = 0,

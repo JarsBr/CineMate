@@ -7,25 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.cinemate.app.R
-import com.cinemate.app.data.repositories.AuthRepository
 import com.cinemate.app.databinding.FragmentCadastroBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import java.util.*
 
 class CadastroFragment : Fragment() {
 
     private var _binding: FragmentCadastroBinding? = null
     private val binding get() = _binding!!
-
-    // Repositórios
-    private lateinit var authRepository: AuthRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +30,6 @@ class CadastroFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Inicializando o AuthRepository
-        authRepository = AuthRepository(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance())
 
         // Configurações para o campo de data
         binding.dateInput.setOnClickListener {
@@ -56,14 +46,17 @@ class CadastroFragment : Fragment() {
             val navController = requireActivity().findNavController(R.id.nav_host_fragment_main)
             navController.navigate(R.id.action_cadastroFragment_to_loginFragment)
         }
+
     }
 
     private fun openDatePicker() {
+        // Obtém a data atual
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+        // Configura o DatePickerDialog
         val datePickerDialog = DatePickerDialog(
             requireContext(),
             R.style.CustomDatePicker,
@@ -80,6 +73,7 @@ class CadastroFragment : Fragment() {
             setDimAmount(0.95f)
         }
 
+        // Exibe o DatePicker
         datePickerDialog.show()
     }
 
@@ -113,52 +107,39 @@ class CadastroFragment : Fragment() {
             return
         }
 
-        // Mostrando loading
-        showLoading(true)
+        // Criar usuário no Firebase Authentication
+        val auth = FirebaseAuth.getInstance()
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val currentUser = auth.currentUser
+                    val userId = currentUser?.uid
 
-        // Registrando usuário usando AuthRepository
-        lifecycleScope.launch {
-            val result = authRepository.register(email, password)
-            if (result != null) {
-                val userId = result.user?.uid
-                if (userId != null) {
-                    saveUserDataToFirestore(userId, name, email, dateOfBirth)
+                    // Salvar dados no Firestore
+                    val db = FirebaseFirestore.getInstance()
+                    val userDocument = db.collection("usuarios").document(userId ?: "")
+
+                    val userData = mapOf(
+                        "nome" to name,
+                        "email" to email,
+                        "data_nascimento" to dateOfBirth,
+                        "tipo_usuario" to "user", // Definido como 'user' por padrão
+                        "filmes_favoritos" to listOf<String>() // Array vazio
+                    )
+
+                    userDocument.set(userData).addOnCompleteListener { dbTask ->
+                        if (dbTask.isSuccessful) {
+                            Toast.makeText(context, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(R.id.action_cadastroFragment_to_loginFragment)
+
+                        } else {
+                            Toast.makeText(context, "Erro ao salvar os dados: ${dbTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 } else {
-                    showLoading(false)
-                    Toast.makeText(context, "Erro ao obter o ID do usuário.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Erro no cadastro: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                showLoading(false)
-                Toast.makeText(context, "Erro ao registrar. Tente novamente.", Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-    private suspend fun saveUserDataToFirestore(userId: String, name: String, email: String, dateOfBirth: String) {
-        val userData = mapOf(
-            "nome" to name,
-            "email" to email,
-            "data_nascimento" to dateOfBirth,
-            "tipo_usuario" to "user",
-            "filmes_favoritos" to emptyList<String>()
-        )
-
-        try {
-            val db = FirebaseFirestore.getInstance()
-            db.collection("usuarios").document(userId).set(userData).await()
-            Toast.makeText(context, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_cadastroFragment_to_loginFragment)
-        } catch (e: Exception) {
-            Toast.makeText(context, "Erro ao salvar dados: ${e.message}", Toast.LENGTH_SHORT).show()
-        } finally {
-            showLoading(false)
-        }
-    }
-
-    private fun showLoading(show: Boolean) {
-        binding.loadingSpinner.visibility = if (show) View.VISIBLE else View.GONE
-        binding.btnCadastro.isEnabled = !show
-        binding.loginText.isEnabled = !show
     }
 
     override fun onDestroyView() {
