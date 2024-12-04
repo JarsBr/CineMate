@@ -1,14 +1,12 @@
 package com.cinemate.app.data.repositories
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import com.cinemate.app.utils.BitmapUtils
 import com.cloudinary.Cloudinary
 import com.cloudinary.utils.ObjectUtils
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.ByteArrayOutputStream
 
 class ImageRepository(
     private val context: Context,
@@ -30,20 +28,16 @@ class ImageRepository(
     ): String? {
         return withContext(Dispatchers.IO) {
             try {
-                // Transformar a imagem para Bitmap
-                val originalBitmap = BitmapFactory.decodeFile(imagePath)
+                val originalBitmap = BitmapUtils.decodeFileToBitmap(imagePath)
 
-                // Converter para WebP
-                val webpBitmap = convertToWebP(originalBitmap)
-
-                // Fazer upload para o Cloudinary
-                val byteArrayOutputStream = ByteArrayOutputStream()
-                webpBitmap.compress(Bitmap.CompressFormat.WEBP, 80, byteArrayOutputStream)
-                val webpBytes = byteArrayOutputStream.toByteArray()
+                val webpBytes = BitmapUtils.convertToWebP(originalBitmap)
 
                 val uploadResult = cloudinary.uploader().upload(
                     webpBytes,
-                    ObjectUtils.asMap("resource_type", "image")
+                    ObjectUtils.asMap(
+                        "resource_type", "image",
+                        "folder", "imagens_filmes"
+                    )
                 )
 
                 val imageUrl = uploadResult["secure_url"] as String
@@ -58,7 +52,6 @@ class ImageRepository(
         }
     }
 
-    // Método para salvar a URL da imagem no Firestore
     private suspend fun saveImageUrlToFirestore(collectionName: String, documentId: String, imageUrl: String) {
         withContext(Dispatchers.IO) {
             try {
@@ -69,13 +62,5 @@ class ImageRepository(
                 e.printStackTrace()
             }
         }
-    }
-
-    // Método para converter qualquer Bitmap para WebP
-    private fun convertToWebP(bitmap: Bitmap): Bitmap {
-        val outputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.WEBP, 80, outputStream)
-        val byteArray = outputStream.toByteArray()
-        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     }
 }

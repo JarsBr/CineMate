@@ -1,4 +1,4 @@
-package com.cinemate.app.ui.adpters
+package com.cinemate.app.ui.adapters
 
 class MoviesAdapter {
 }
