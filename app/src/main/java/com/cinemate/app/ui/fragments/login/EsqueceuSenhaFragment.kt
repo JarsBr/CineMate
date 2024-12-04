@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.cinemate.app.databinding.FragmentEsqueceuSenhaBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class EsqueceuSenhaFragment : Fragment() {
 
@@ -22,12 +24,12 @@ class EsqueceuSenhaFragment : Fragment() {
     ): View {
         _binding = FragmentEsqueceuSenhaBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Configurar a ação do botão "Cadastre-se"
         binding.btnEnviarCod.setOnClickListener {
             handleRegister()
         }
@@ -42,6 +44,16 @@ class EsqueceuSenhaFragment : Fragment() {
             binding.emailInput.requestFocus()
             return
         }
+
+        val auth = FirebaseAuth.getInstance()
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(requireContext(), "Email de redefinição enviado!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Erro: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     override fun onDestroyView() {
