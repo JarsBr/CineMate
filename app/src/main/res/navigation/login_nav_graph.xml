@@ -48,9 +48,6 @@
         android:label="Esqueceu Senha"
         tools:layout="@layout/fragment_esqueceu_senha" >
         <action
-            android:id="@+id/action_esqueceuSenhaFragment_to_confirmaCodigoFragment"
-            app:destination="@id/confirmaCodigoFragment" />
-        <action
             android:id="@+id/action_esqueceuSenhaFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
