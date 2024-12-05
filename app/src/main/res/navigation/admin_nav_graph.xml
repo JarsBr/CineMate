@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_filmesCadastradosFragment_to_painelAdminFragment"
             app:destination="@id/painelAdminFragment" />
+        <action
+            android:id="@+id/action_filmesCadastradosFragment_to_sugestoesFragment"
+            app:destination="@id/sugestoesFragment" />
     </fragment>
 
     <fragment
@@ -85,5 +88,14 @@
         <action
             android:id="@+id/action_gestaoRepostasFragment_to_gestaoReviewFragment"
             app:destination="@id/gestaoReviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sugestoesFragment"
+        android:name="com.cinemate.app.ui.fragments.admin.SugestoesFragment"
+        android:label="fragment_sugestoes"
+        tools:layout="@layout/fragment_sugestoes" >
+        <action
+            android:id="@+id/action_sugestoesFragment_to_filmesCadastradosFragment"
+            app:destination="@id/filmesCadastradosFragment" />
     </fragment>
 </navigation>

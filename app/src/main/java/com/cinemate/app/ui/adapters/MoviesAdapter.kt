@@ -6,10 +6,13 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cinemate.app.R
 import com.cinemateapp.utils.Constants.Plataforma
+import androidx.recyclerview.widget.ListAdapter
+import com.cinemate.app.data.models.Movie
 
 class MoviesAdapter {
 
@@ -96,4 +99,47 @@ class MoviesAdapter {
             }
         }
     }
+
+    class MoviesListAdapter :
+        ListAdapter<Movie, MoviesListAdapter.MovieViewHolder>(MovieDiffCallback()) {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_movie_card, parent, false)
+            return MovieViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+            val movie = getItem(position)
+            holder.bind(movie)
+        }
+
+        class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            private val movieImage: ImageView = itemView.findViewById(R.id.movieImage)
+            private val movieTitle: TextView = itemView.findViewById(R.id.movieTitle)
+            private val movieRating: TextView = itemView.findViewById(R.id.movieRating)
+
+            fun bind(movie: Movie) {
+                movieTitle.text = movie.titulo
+                movieRating.text = movie.mediaAvaliacao.toString()
+
+                Glide.with(itemView.context)
+                    .load(movie.imagemUrl)
+                    .placeholder(R.drawable.placeholder_image)
+                    .into(movieImage)
+            }
+        }
+
+        class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem.titulo == newItem.titulo
+            }
+
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 }
+
+
