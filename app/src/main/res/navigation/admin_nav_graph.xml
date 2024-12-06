@@ -22,14 +22,17 @@
         android:label="Filmes Cadastrados"
         tools:layout="@layout/fragment_filmes_cadastrados" >
         <action
-            android:id="@+id/action_filmesCadastradosFragment_to_gestaoFilmeFragment"
-            app:destination="@id/gestaoFilmeFragment" />
-        <action
             android:id="@+id/action_filmesCadastradosFragment_to_painelAdminFragment"
             app:destination="@id/painelAdminFragment" />
         <action
             android:id="@+id/action_filmesCadastradosFragment_to_sugestoesFragment"
             app:destination="@id/sugestoesFragment" />
+        <action
+            android:id="@+id/action_filmesCadastradosFragment_to_adicionarFilmeFragment"
+            app:destination="@id/adicionarFilmeFragment" />
+        <action
+            android:id="@+id/action_filmesCadastradosFragment_to_atualizarFilmeFragment"
+            app:destination="@id/atualizarFilmeFragment" />
     </fragment>
 
     <fragment
@@ -38,24 +41,8 @@
         android:label="Usuários Cadastrados"
         tools:layout="@layout/fragment_usuarios_cadastrados" >
         <action
-            android:id="@+id/action_usuariosCadastradosFragment_to_gestaoUsuarioFragment"
-            app:destination="@id/gestaoUsuarioFragment" />
-        <action
             android:id="@+id/action_usuariosCadastradosFragment_to_painelAdminFragment"
             app:destination="@id/painelAdminFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/gestaoFilmeFragment"
-        android:name="com.cinemate.app.ui.fragments.admin.GestaoFilmeFragment"
-        android:label="Gestão de Filme"
-        tools:layout="@layout/fragment_gestao_filme" >
-        <action
-            android:id="@+id/action_gestaoFilmeFragment_to_gestaoReviewFragment"
-            app:destination="@id/gestaoReviewFragment" />
-        <action
-            android:id="@+id/action_gestaoFilmeFragment_to_filmesCadastradosFragment"
-            app:destination="@id/filmesCadastradosFragment" />
     </fragment>
 
     <fragment
@@ -64,22 +51,16 @@
         android:label="Gestão de Review"
         tools:layout="@layout/fragment_gestao_review" >
         <action
-            android:id="@+id/action_gestaoReviewFragment_to_gestaoFilmeFragment"
-            app:destination="@id/gestaoFilmeFragment" />
-        <action
             android:id="@+id/action_gestaoReviewFragment_to_gestaoRepostasFragment"
             app:destination="@id/gestaoRepostasFragment" />
+        <action
+            android:id="@+id/action_gestaoReviewFragment_to_adicionarFilmeFragment"
+            app:destination="@id/adicionarFilmeFragment" />
+        <action
+            android:id="@+id/action_gestaoReviewFragment_to_atualizarFilmeFragment"
+            app:destination="@id/atualizarFilmeFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/gestaoUsuarioFragment"
-        android:name="com.cinemate.app.ui.fragments.admin.GestaoUsuarioFragment"
-        android:label="Gestão de Usuário"
-        tools:layout="@layout/fragment_gestao_usuario" >
-        <action
-            android:id="@+id/action_gestaoUsuarioFragment_to_usuariosCadastradosFragment"
-            app:destination="@id/usuariosCadastradosFragment" />
-    </fragment>
     <fragment
         android:id="@+id/gestaoRepostasFragment"
         android:name="com.cinemate.app.ui.fragments.admin.GestaoRepostasFragment"
@@ -96,6 +77,30 @@
         tools:layout="@layout/fragment_sugestoes" >
         <action
             android:id="@+id/action_sugestoesFragment_to_filmesCadastradosFragment"
+            app:destination="@id/filmesCadastradosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/atualizarFilmeFragment"
+        android:name="com.cinemate.app.ui.fragments.admin.AtualizarFilmeFragment"
+        android:label="fragment_atualizar_filme"
+        tools:layout="@layout/fragment_atualizar_filme" >
+        <action
+            android:id="@+id/action_atualizarFilmeFragment_to_filmesCadastradosFragment"
+            app:destination="@id/filmesCadastradosFragment" />
+        <action
+            android:id="@+id/action_atualizarFilmeFragment_to_gestaoReviewFragment"
+            app:destination="@id/gestaoReviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adicionarFilmeFragment"
+        android:name="com.cinemate.app.ui.fragments.admin.AdicionarFilmeFragment"
+        android:label="fragment_adicionar_filme"
+        tools:layout="@layout/fragment_adicionar_filme" >
+        <action
+            android:id="@+id/action_adicionarFilmeFragment_to_gestaoReviewFragment"
+            app:destination="@id/gestaoReviewFragment" />
+        <action
+            android:id="@+id/action_adicionarFilmeFragment_to_filmesCadastradosFragment"
             app:destination="@id/filmesCadastradosFragment" />
     </fragment>
 </navigation>

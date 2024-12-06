@@ -15,23 +15,22 @@ import com.cinemate.app.R
 import com.cinemate.app.data.models.Movie
 import com.cinemate.app.data.repositories.ImageRepository
 import com.cinemate.app.data.repositories.MovieRepository
-import com.cinemate.app.databinding.FragmentGestaoFilmeBinding
+import com.cinemate.app.databinding.FragmentAdicionarFilmeBinding
 import com.cinemate.app.ui.adapters.MoviesAdapter
 import com.cinemate.app.utils.FileUtils
 import com.cinemateapp.utils.Constants
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
-class GestaoFilmeFragment : Fragment() {
+class AdicionarFilmeFragment : Fragment() {
 
-    private var _binding: FragmentGestaoFilmeBinding? = null
+    private var _binding: FragmentAdicionarFilmeBinding? = null
     private val binding get() = _binding!!
 
     private var selectedImageUri: Uri? = null
     private lateinit var imageRepository: ImageRepository
     private lateinit var movieRepository: MovieRepository
 
-    // Listas para armazenar os itens selecionados
     private val selectedGeneros = mutableListOf<String>()
     private val selectedPlataformas = mutableListOf<String>()
 
@@ -39,7 +38,7 @@ class GestaoFilmeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentGestaoFilmeBinding.inflate(inflater, container, false)
+        _binding = FragmentAdicionarFilmeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
