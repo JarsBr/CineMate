@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_mainFragment_to_cadastroFragment"
             app:destination="@id/cadastroFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_feedFragment2"
+            app:destination="@id/feedFragment2" />
     </fragment>
 
     <fragment
@@ -51,5 +54,10 @@
             android:id="@+id/action_esqueceuSenhaFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/feedFragment2"
+        android:name="com.cinemate.app.ui.fragments.main.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" />
 
 </navigation>

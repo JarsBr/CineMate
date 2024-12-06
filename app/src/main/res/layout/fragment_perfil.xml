@@ -9,41 +9,10 @@
     tools:context="com.cinemate.app.ui.fragments.main.PerfilFragment">
 
 
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="82dp"
-        android:layout_height="47dp"
-        android:layout_marginBottom="68dp"
-        android:backgroundTint="#FFFFFF"
-        android:padding="0dp"
-        android:text="Sair"
-        android:textColor="#FF0000"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/nomeLabel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.743"
-        app:layout_constraintStart_toEndOf="@+id/logoImage" />
-
-    <Button
-        android:id="@+id/btnAlterarDados"
-        android:layout_width="192dp"
-        android:layout_height="59dp"
-        android:backgroundTint="#FF0000"
-        android:padding="12dp"
-        android:text="Alterar Dados"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="398dp"
-        tools:ignore="MissingConstraints" />
-
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_marginTop="4dp"
         android:contentDescription="Logo Cinemate"
         android:src="@drawable/logo_stretched"
         app:layout_constraintBottom_toTopOf="@+id/nomeLabel"
@@ -51,13 +20,45 @@
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.153" />
+        app:layout_constraintVertical_bias="0.3" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="82dp"
+        android:layout_height="47dp"
+        android:backgroundTint="#FFFFFF"
+        android:padding="0dp"
+        android:text="Sair"
+        android:textColor="#FF0000"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/nomeLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.752"
+        app:layout_constraintStart_toEndOf="@+id/logoImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <Button
+        android:id="@+id/btnAlterarDados"
+        android:layout_width="192dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="224dp"
+        android:backgroundTint="#FF0000"
+        android:padding="12dp"
+        android:text="Alterar Dados"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/nomeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         android:text="Nome:"
         android:textColor="#FF0000"
         android:textSize="30sp"
@@ -83,7 +84,7 @@
         android:id="@+id/emailLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         android:text="Email:"
         android:textColor="#FF0000"
         android:textSize="30sp"
@@ -96,7 +97,7 @@
         android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="80dp"
         android:text="email"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
@@ -104,5 +105,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="@drawable/rounded_nav_bar_background"
+        app:menu="@menu/bottom_navigation_menu"
+        app:itemIconTint="@color/bottom_nav_icon_selector"
+        app:itemTextColor="@color/bottom_nav_icon_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:itemBackground="@null" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
