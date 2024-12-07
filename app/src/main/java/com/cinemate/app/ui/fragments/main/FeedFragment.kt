@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.cinemate.app.R
 import com.cinemate.app.databinding.FragmentFeedBinding
 
 class FeedFragment : Fragment() {
@@ -20,31 +18,6 @@ class FeedFragment : Fragment() {
     ): View {
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setupBottomNavigation()
-    }
-
-    private fun setupBottomNavigation() {
-        binding.bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    true
-                }
-                R.id.nav_favorite -> {
-                    findNavController().navigate(R.id.action_feedFragment_to_minhaListaFragment)
-                    true
-                }
-                R.id.nav_profile -> {
-                    findNavController().navigate(R.id.action_feedFragment_to_perfilFragment)
-                    true
-                }
-                else -> false
-            }
-        }
     }
 
     override fun onDestroyView() {
