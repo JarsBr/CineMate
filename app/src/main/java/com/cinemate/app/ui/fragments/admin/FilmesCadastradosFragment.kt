@@ -54,12 +54,17 @@ class FilmesCadastradosFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        moviesAdapter = MoviesAdapter.MoviesListAdapter()
+        moviesAdapter = MoviesAdapter.MoviesListAdapter { selectedMovie ->
+            val action = FilmesCadastradosFragmentDirections
+                .actionFilmesCadastradosFragmentToAtualizarFilmeFragment(selectedMovie)
+            findNavController().navigate(action)
+        }
         binding.recyclerViewFilmes.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = moviesAdapter
         }
     }
+
 
     private fun setupSearch() {
         binding.searchInput.addTextChangedListener(object : TextWatcher {

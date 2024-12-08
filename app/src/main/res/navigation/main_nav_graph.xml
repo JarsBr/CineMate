@@ -96,7 +96,8 @@
     <fragment
         android:id="@+id/responderReviewFragment"
         android:name="com.cinemate.app.ui.fragments.main.ResponderReviewFragment"
-        android:label="ResponderReviewFragment" >
+        android:label="fragment_responder_review"
+        tools:layout="@layout/fragment_responder_review" >
         <action
             android:id="@+id/action_responderReviewFragment_to_detalhesFilmeFragment"
             app:destination="@id/detalhesFilmeFragment" />

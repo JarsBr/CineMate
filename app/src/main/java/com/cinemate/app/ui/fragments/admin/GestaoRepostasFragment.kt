@@ -9,5 +9,15 @@ import com.cinemate.app.R
 
 
 class GestaoRepostasFragment : Fragment() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_gestao_repostas, container, false)
+    }
 }

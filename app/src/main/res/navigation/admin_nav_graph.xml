@@ -84,6 +84,9 @@
         android:name="com.cinemate.app.ui.fragments.admin.AtualizarFilmeFragment"
         android:label="fragment_atualizar_filme"
         tools:layout="@layout/fragment_atualizar_filme" >
+        <argument
+            android:name="movie"
+            app:argType="com.cinemate.app.data.models.Movie" />
         <action
             android:id="@+id/action_atualizarFilmeFragment_to_filmesCadastradosFragment"
             app:destination="@id/filmesCadastradosFragment" />

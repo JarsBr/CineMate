@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#090F13"
-    tools:context="com.cinemate.app.ui.fragments.main.FeedFragment">
+    tools:context="com.cinemate.app.ui.fragments.admin.SugestoesFragment">
 
     <ImageView
         android:id="@+id/logoImage"

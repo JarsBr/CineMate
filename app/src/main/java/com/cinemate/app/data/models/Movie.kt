@@ -1,7 +1,11 @@
 package com.cinemate.app.data.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Movie(
-    val id: String = "",
+    var id: String = "",
     val ano: Int = 0,
     val atoresPrincipais: String = "",
     val duracao: String = "",
@@ -12,4 +16,4 @@ data class Movie(
     val mediaAvaliacao: Float = 0f,
     val ondeAssistir: List<String> = emptyList(),
     val sinopse: String = ""
-)
+) : Parcelable

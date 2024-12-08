@@ -48,8 +48,8 @@ class AdicionarFilmeFragment : Fragment() {
         imageRepository = ImageRepository(requireContext(), FirebaseFirestore.getInstance())
         movieRepository = MovieRepository(FirebaseFirestore.getInstance())
 
-        setupGeneroRecyclerView()
-        setupOndeAssistirRecyclerView()
+        setupGeneroRecyclerView(selectedGeneros)
+        setupOndeAssistirRecyclerView(selectedPlataformas)
 
         binding.btnUpload.setOnClickListener {
             openImagePicker()
@@ -60,12 +60,15 @@ class AdicionarFilmeFragment : Fragment() {
         }
     }
 
-    private fun setupGeneroRecyclerView() {
-        val generosAdapter = MoviesAdapter.GenerosAdapter(Constants.generosList) { genero, isChecked ->
+    private fun setupGeneroRecyclerView(selectedGeneros: List<String>) {
+        val generosAdapter = MoviesAdapter.GenerosAdapter(
+            Constants.generosList,
+            selectedGeneros
+        ) { genero, isChecked ->
             if (isChecked) {
-                selectedGeneros.add(genero)
+                this.selectedGeneros.add(genero)
             } else {
-                selectedGeneros.remove(genero)
+                this.selectedGeneros.remove(genero)
             }
         }
         binding.generoRecyclerView.apply {
@@ -74,12 +77,15 @@ class AdicionarFilmeFragment : Fragment() {
         }
     }
 
-    private fun setupOndeAssistirRecyclerView() {
-        val ondeAssistirAdapter = MoviesAdapter.OndeAssistirAdapter(Constants.ondeAssistirList) { plataforma, isChecked ->
+    private fun setupOndeAssistirRecyclerView(selectedPlataformas: List<String>) {
+        val ondeAssistirAdapter = MoviesAdapter.OndeAssistirAdapter(
+            Constants.ondeAssistirList,
+            selectedPlataformas
+        ) { plataforma, isChecked ->
             if (isChecked) {
-                selectedPlataformas.add(plataforma.nome)
+                this.selectedPlataformas.add(plataforma.nome)
             } else {
-                selectedPlataformas.remove(plataforma.nome)
+                this.selectedPlataformas.remove(plataforma.nome)
             }
         }
         binding.ondeAssistirRecyclerView.apply {
@@ -153,7 +159,7 @@ class AdicionarFilmeFragment : Fragment() {
                 val ano = try {
                     anoString.toInt()
                 } catch (e: NumberFormatException) {
-                    Toast.makeText(requireContext(), "Faixa etária deve ser um número válido.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Ano deve ser um número válido.", Toast.LENGTH_SHORT).show()
                     return@launch
                 }
 

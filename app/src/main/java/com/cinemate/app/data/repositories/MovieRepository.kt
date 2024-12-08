@@ -12,25 +12,59 @@ class MovieRepository(private val db: FirebaseFirestore) {
     suspend fun getMovies(): List<Movie>? {
         return try {
             val snapshot = collection.get().await()
-            snapshot.toObjects(Movie::class.java)
+            snapshot.toObjects(Movie::class.java).map { movie ->
+                movie.id = snapshot.documents.find { it.getString("titulo") == movie.titulo }?.id.orEmpty()
+                movie
+            }
         } catch (e: Exception) {
             null
         }
     }
 
-    suspend fun addMovie(movie: Movie) {
-        try {
-            collection.add(movie).await()
+    suspend fun addMovie(movie: Movie): Result<Unit> {
+        return try {
+            if (movie.titulo.isEmpty()) {
+                throw IllegalArgumentException("O título do filme não pode estar vazio.")
+            }
+
+            val documentReference = if (movie.id.isNotEmpty()) {
+                collection.document(movie.id).set(movie).await()
+                collection.document(movie.id)
+            } else {
+                val docRef = collection.add(movie).await()
+                docRef
+            }
+
+            // Atualiza o ID no objeto Movie
+            movie.id = documentReference.id
+            Result.success(Unit)
         } catch (e: Exception) {
-            // Handle exceptions
+            Result.failure(e)
         }
     }
 
     suspend fun deleteMovie(movieId: String) {
         try {
-            collection.document(movieId).delete().await()
+            if (movieId.isNotEmpty()) {
+                collection.document(movieId).delete().await()
+            } else {
+                throw Exception("ID do filme está vazio. Não é possível excluir.")
+            }
         } catch (e: Exception) {
-            // Handle exceptions
+            throw Exception("Erro ao excluir o filme: ${e.message}")
+        }
+    }
+
+    suspend fun updateMovie(movie: Movie) {
+        try {
+            val movieId = movie.id
+            if (movieId.isNotEmpty()) {
+                collection.document(movieId).set(movie).await()
+            } else {
+                throw Exception("ID do filme está vazio. Não é possível atualizar.")
+            }
+        } catch (e: Exception) {
+            throw Exception("Erro ao atualizar o filme: ${e.message}")
         }
     }
 }

@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.cinemate.app.R
 import com.cinemate.app.data.models.Movie
 import com.cinemate.app.data.repositories.ImageRepository
@@ -48,24 +50,67 @@ class AtualizarFilmeFragment: Fragment() {
         imageRepository = ImageRepository(requireContext(), FirebaseFirestore.getInstance())
         movieRepository = MovieRepository(FirebaseFirestore.getInstance())
 
-        setupGeneroRecyclerView()
-        setupOndeAssistirRecyclerView()
+        val movie = AtualizarFilmeFragmentArgs.fromBundle(requireArguments()).movie
+        populateFields(movie)
+
+        setupGeneroRecyclerView(movie.genero)
+        setupOndeAssistirRecyclerView(movie.ondeAssistir)
 
         binding.btnUpload.setOnClickListener {
             openImagePicker()
         }
 
         binding.btnAtualizarFilme.setOnClickListener {
-            updateMovie()
+            updateMovie(movie)
+        }
+
+        binding.btnExcluir.setOnClickListener {
+            deleteMovie(movie.id)
+        }
+
+        binding.btnVerReviews.setOnClickListener {
+            findNavController().navigate(R.id.action_atualizarFilmeFragment_to_gestaoReviewFragment)
         }
     }
 
-    private fun setupGeneroRecyclerView() {
-        val generosAdapter = MoviesAdapter.GenerosAdapter(Constants.generosList) { genero, isChecked ->
+    private fun populateFields(movie: Movie) {
+        binding.tituloInput.setText(movie.titulo)
+        binding.duracaoInput.setText(movie.duracao)
+        binding.faixaEtariaInput.setText(movie.faixaEtaria.toString())
+        binding.anoInput.setText(movie.ano.toString())
+        binding.sinopseInput.setText(movie.sinopse)
+        binding.elencoInput.setText(movie.atoresPrincipais)
+
+        Glide.with(requireContext())
+            .load(movie.imagemUrl)
+            .placeholder(R.drawable.placeholder_image)
+            .into(binding.btnUpload)
+
+        setupGeneroRecyclerView(movie.genero)
+        setupOndeAssistirRecyclerView(movie.ondeAssistir)
+    }
+
+    private fun deleteMovie(movieId: String) {
+        lifecycleScope.launch {
+            try {
+                movieRepository.deleteMovie(movieId)
+                Toast.makeText(requireContext(), "Filme excluído com sucesso!", Toast.LENGTH_SHORT).show()
+                findNavController().navigateUp()
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Erro ao excluir filme: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setupGeneroRecyclerView(selectedGeneros: List<String>) {
+        val generosAdapter = MoviesAdapter.GenerosAdapter(
+            Constants.generosList,
+            selectedGeneros
+        ) { genero, isChecked ->
             if (isChecked) {
-                selectedGeneros.add(genero)
+                this.selectedGeneros.add(genero)
             } else {
-                selectedGeneros.remove(genero)
+                this.selectedGeneros.remove(genero)
             }
         }
         binding.generoRecyclerView.apply {
@@ -74,12 +119,15 @@ class AtualizarFilmeFragment: Fragment() {
         }
     }
 
-    private fun setupOndeAssistirRecyclerView() {
-        val ondeAssistirAdapter = MoviesAdapter.OndeAssistirAdapter(Constants.ondeAssistirList) { plataforma, isChecked ->
+    private fun setupOndeAssistirRecyclerView(selectedPlataformas: List<String>) {
+        val ondeAssistirAdapter = MoviesAdapter.OndeAssistirAdapter(
+            Constants.ondeAssistirList,
+            selectedPlataformas
+        ) { plataforma, isChecked ->
             if (isChecked) {
-                selectedPlataformas.add(plataforma.nome)
+                this.selectedPlataformas.add(plataforma.nome)
             } else {
-                selectedPlataformas.remove(plataforma.nome)
+                this.selectedPlataformas.remove(plataforma.nome)
             }
         }
         binding.ondeAssistirRecyclerView.apply {
@@ -87,6 +135,7 @@ class AtualizarFilmeFragment: Fragment() {
             adapter = ondeAssistirAdapter
         }
     }
+
 
     private fun openImagePicker() {
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
@@ -105,7 +154,7 @@ class AtualizarFilmeFragment: Fragment() {
         }
     }
 
-    private fun updateMovie() {
+    private fun updateMovie(movie: Movie) {
         val titulo = binding.tituloInput.text.toString().trim()
         val duracao = binding.duracaoInput.text.toString().trim()
         val faixaEtariaString = binding.faixaEtariaInput.text.toString().trim()
@@ -128,20 +177,18 @@ class AtualizarFilmeFragment: Fragment() {
             return
         }
 
-        if (selectedImageUri == null) {
-            Toast.makeText(requireContext(), "Selecione uma imagem para o filme.", Toast.LENGTH_SHORT).show()
-            return
-        }
-
         lifecycleScope.launch {
             try {
-                val imagePath = FileUtils.getPath(requireContext(), selectedImageUri!!) ?: throw Exception("Erro ao obter o caminho da imagem")
-
-                val imageUrl = imageRepository.uploadImage(
-                    imagePath = imagePath,
-                    documentId = titulo,
-                    collectionName = "filmes"
-                ) ?: throw Exception("Erro ao fazer upload da imagem")
+                val imageUrl = if (selectedImageUri != null) {
+                    val imagePath = FileUtils.getPath(requireContext(), selectedImageUri!!) ?: throw Exception("Erro ao obter o caminho da imagem")
+                    imageRepository.uploadImage(
+                        imagePath = imagePath,
+                        documentId = titulo,
+                        collectionName = "filmes"
+                    ) ?: throw Exception("Erro ao fazer upload da imagem")
+                } else {
+                    movie.imagemUrl
+                }
 
                 val faixaEtaria = try {
                     faixaEtariaString.toInt()
@@ -153,11 +200,11 @@ class AtualizarFilmeFragment: Fragment() {
                 val ano = try {
                     anoString.toInt()
                 } catch (e: NumberFormatException) {
-                    Toast.makeText(requireContext(), "Faixa etária deve ser um número válido.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Ano deve ser um número válido.", Toast.LENGTH_SHORT).show()
                     return@launch
                 }
 
-                val movie = Movie(
+                val updatedMovie = movie.copy(
                     titulo = titulo,
                     duracao = duracao,
                     faixaEtaria = faixaEtaria,
@@ -169,16 +216,18 @@ class AtualizarFilmeFragment: Fragment() {
                     ondeAssistir = selectedPlataformas
                 )
 
-                movieRepository.addMovie(movie)
+                movieRepository.updateMovie(updatedMovie)
 
-                Toast.makeText(requireContext(), "Filme cadastrado com sucesso!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Filme atualizado com sucesso!", Toast.LENGTH_SHORT).show()
+                findNavController().navigateUp()
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                Toast.makeText(requireContext(), "Erro ao cadastrar o filme: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Erro ao atualizar o filme: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 
 
     override fun onDestroyView() {

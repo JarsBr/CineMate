@@ -26,19 +26,6 @@
             tools:ignore="MissingConstraints"
             tools:listitem="@layout/item_checkbox" />
 
-        <Button
-            android:id="@+id/btnVerReviews"
-            android:layout_width="229dp"
-            android:layout_height="52dp"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="#FFFFFF"
-            android:padding="12dp"
-            android:text="Ver reviews"
-            android:textColor="#FF0000"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/btnAdicionarFilme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/reviewsLabel"
@@ -48,7 +35,7 @@
             android:text="Lista de Reviews:"
             android:textColor="#FF0000"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/btnVerReviews"
+            app:layout_constraintBottom_toTopOf="@+id/btnAdicionarFilme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.274"
             app:layout_constraintStart_toStartOf="parent" />
