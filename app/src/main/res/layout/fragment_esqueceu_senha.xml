@@ -53,15 +53,16 @@
 
     <TextView
         android:id="@+id/enviarText"
-        android:layout_width="263dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="36dp"
+        android:layout_width="308dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="32dp"
         android:text="Informe seu email para envio do link para recuperação da sua senha."
         android:textAlignment="viewStart"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/emailLabel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText

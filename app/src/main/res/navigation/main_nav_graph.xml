@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_detalhesFilmeFragment_to_publicarReviewFragment"
             app:destination="@id/publicarReviewFragment" />
+        <action
+            android:id="@+id/action_detalhesFilmeFragment_to_responderReviewFragment"
+            app:destination="@id/responderReviewFragment" />
     </fragment>
 
     <fragment
@@ -89,5 +92,13 @@
         <action
             android:id="@+id/action_recomendarFilmeFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/responderReviewFragment"
+        android:name="com.cinemate.app.ui.fragments.main.ResponderReviewFragment"
+        android:label="ResponderReviewFragment" >
+        <action
+            android:id="@+id/action_responderReviewFragment_to_detalhesFilmeFragment"
+            app:destination="@id/detalhesFilmeFragment" />
     </fragment>
 </navigation>

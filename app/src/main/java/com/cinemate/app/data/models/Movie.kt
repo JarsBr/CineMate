@@ -11,6 +11,5 @@ data class Movie(
     val imagemUrl: String = "",
     val mediaAvaliacao: Float = 0f,
     val ondeAssistir: List<String> = emptyList(),
-    val qtdReviews: Int = 0,
     val sinopse: String = ""
 )
