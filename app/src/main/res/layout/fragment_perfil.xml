@@ -34,7 +34,6 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent" />
 
-
     <Button
         android:id="@+id/btnAlterarDados"
         android:layout_width="192dp"
@@ -88,30 +87,32 @@
         android:text="nome"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/emailLabel"
+        app:layout_constraintBottom_toTopOf="@+id/dataNascimentoLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.203"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- Label de Data de Nascimento -->
     <TextView
-        android:id="@+id/emailLabel"
+        android:id="@+id/dataNascimentoLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="Email:"
+        android:text="Data de Nascimento:"
         android:textColor="#FF0000"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtEmail"
+        app:layout_constraintBottom_toTopOf="@+id/txtDataNascimento"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.151"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- Campo de Data de Nascimento -->
     <TextView
-        android:id="@+id/txtEmail"
+        android:id="@+id/txtDataNascimento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
-        android:text="email"
+        android:text="data_nascimento"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/btnAlterarDados"

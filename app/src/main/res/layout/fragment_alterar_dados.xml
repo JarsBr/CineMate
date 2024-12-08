@@ -6,10 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#090F13"
-    tools:context="com.cinemate.app.ui.fragments.main.AlterarDadosFragment"
-    tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="-7dp">
+    tools:context="com.cinemate.app.ui.fragments.main.AlterarDadosFragment">
 
+    <!-- Logo Cinemate -->
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="200dp"
@@ -19,25 +18,25 @@
         android:src="@drawable/logo"
         app:layout_constraintBottom_toTopOf="@+id/alterarDadosText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.324" />
 
-    <Button
-        android:id="@+id/btnAlterarDados"
-        android:layout_width="229dp"
-        android:layout_height="52dp"
-        android:layout_marginBottom="196dp"
-        android:backgroundTint="#FF0000"
-        android:padding="12dp"
-        android:text="Confirmar"
+    <!-- Título "Alterar Dados" -->
+    <TextView
+        android:id="@+id/alterarDadosText"
+        android:layout_width="233dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="32dp"
+        android:text="Alterar Dados"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/nomeLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- Campo de Nome -->
     <TextView
         android:id="@+id/nomeLabel"
         android:layout_width="wrap_content"
@@ -61,51 +60,84 @@
         android:padding="12dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#A0A0A0"
-        app:layout_constraintBottom_toTopOf="@+id/emailText"
+        app:layout_constraintBottom_toTopOf="@+id/dataNascimentoLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- Campo de Data de Nascimento -->
     <TextView
-        android:id="@+id/alterarDadosText"
-        android:layout_width="233dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="32dp"
-        android:text="Alterar Dados"
-        android:textAlignment="center"
+        android:id="@+id/dataNascimentoLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Data de Nascimento:"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/nomeLabel"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/dataNascimentoInput"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.201"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/EmailInput"
+        android:id="@+id/dataNascimentoInput"
+        android:layout_width="262dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#E0E0E0"
+        android:hint="DD/MM/AAAA"
+        android:padding="12dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#A0A0A0"
+        android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@+id/senhaLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Campo de Senha -->
+    <TextView
+        android:id="@+id/senhaLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Senha:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/senhaInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.201"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/senhaInput"
         android:layout_width="262dp"
         android:layout_height="46dp"
         android:layout_marginBottom="48dp"
         android:backgroundTint="#E0E0E0"
-        android:hint="Email"
+        android:hint="Senha"
         android:padding="12dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#A0A0A0"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/btnAlterarDados"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/emailText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:text="Email:"
+    <!-- Botão Confirmar -->
+    <Button
+        android:id="@+id/btnAlterarDados"
+        android:layout_width="229dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="196dp"
+        android:backgroundTint="#FF0000"
+        android:padding="12dp"
+        android:text="Confirmar"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/EmailInput"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.201"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="DuplicateIds" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
