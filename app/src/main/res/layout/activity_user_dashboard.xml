@@ -5,10 +5,12 @@
     android:layout_height="match_parent"
     android:background="#090F13">
 
-    <FrameLayout
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:navGraph="@navigation/main_nav_graph"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintStart_toStartOf="parent"

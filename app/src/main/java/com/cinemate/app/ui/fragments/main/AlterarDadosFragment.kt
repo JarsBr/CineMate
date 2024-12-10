@@ -32,14 +32,13 @@ class AlterarDadosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Atualiza os dados do usuário antes de exibir
+        activity?.findViewById<View>(R.id.bottomNavigation)?.visibility = View.GONE
+
         authViewModel.refreshUserData()
 
-        // Observa as alterações nos dados do usuário
         authViewModel.userDetails.observe(viewLifecycleOwner) { userDetails ->
             binding.nomeInput.setText(userDetails["nome"]?.toString() ?: "")
 
-            // Exibir a data de nascimento formatada
             val dataNascimento = userDetails["data_nascimento"]?.toString()
             binding.dataNascimentoInput.setText(dataNascimento ?: "")
         }
@@ -54,11 +53,10 @@ class AlterarDadosFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            // Reautentica e atualiza os dados
             authViewModel.reauthenticateAndUpdateProfile(password, newName, newDataNascimento) { success ->
                 if (success) {
                     Toast.makeText(context, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show()
-                    authViewModel.refreshUserData() // Atualiza os dados do usuário após a alteração
+                    authViewModel.refreshUserData()
                     requireActivity().supportFragmentManager.popBackStack()
                 } else {
                     Toast.makeText(context, "Erro ao atualizar os dados ou senha incorreta.", Toast.LENGTH_SHORT).show()
@@ -69,6 +67,7 @@ class AlterarDadosFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        activity?.findViewById<View>(R.id.bottomNavigation)?.visibility = View.VISIBLE
         _binding = null
     }
 }

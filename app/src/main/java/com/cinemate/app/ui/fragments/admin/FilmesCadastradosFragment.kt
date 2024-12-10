@@ -14,8 +14,8 @@ import com.cinemate.app.R
 import com.cinemate.app.data.repositories.MovieRepository
 import com.cinemate.app.databinding.FragmentFilmesCadastradosBinding
 import com.cinemate.app.ui.adapters.MoviesAdapter
-import com.cinemate.app.ui.viewmodels.MovieViewModel
-import com.cinemate.app.ui.viewmodels.MovieViewModelFactory
+import com.cinemate.app.viewModel.MovieViewModel
+import com.cinemate.app.viewModel.MovieViewModelFactory
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FilmesCadastradosFragment : Fragment() {

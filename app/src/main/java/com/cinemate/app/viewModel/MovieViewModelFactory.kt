@@ -1,4 +1,4 @@
-package com.cinemate.app.ui.viewmodels
+package com.cinemate.app.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

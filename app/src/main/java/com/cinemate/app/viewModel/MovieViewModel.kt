@@ -1,4 +1,4 @@
-package com.cinemate.app.ui.viewmodels
+package com.cinemate.app.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

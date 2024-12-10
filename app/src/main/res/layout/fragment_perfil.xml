@@ -93,31 +93,32 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Label de Data de Nascimento -->
+
+    <!-- Campo de Data de Nascimento -->
     <TextView
         android:id="@+id/dataNascimentoLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
         android:text="Data de Nascimento:"
         android:textColor="#FF0000"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/txtDataNascimento"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintHorizontal_bias="0.374"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Campo de Data de Nascimento -->
     <TextView
         android:id="@+id/txtDataNascimento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:text="data_nascimento"
+        android:layout_marginBottom="76dp"
+        android:text="0/0/0000"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/btnAlterarDados"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.198"
+        app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.cinemate.app.R
 import com.cinemate.app.databinding.FragmentEsqueceuSenhaBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -50,6 +52,7 @@ class EsqueceuSenhaFragment : Fragment() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(requireContext(), "Email de redefinição enviado!", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_esqueceuSenhaFragment_to_loginFragment)
                 } else {
                     Toast.makeText(requireContext(), "Erro: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }

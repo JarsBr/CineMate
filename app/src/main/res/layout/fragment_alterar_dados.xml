@@ -9,6 +9,11 @@
     tools:context="com.cinemate.app.ui.fragments.main.AlterarDadosFragment">
 
     <!-- Logo Cinemate -->
+
+    <!-- Título "Alterar Dados" -->
+
+    <!-- Campo de Nome -->
+
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="200dp"
@@ -18,16 +23,16 @@
         android:src="@drawable/logo"
         app:layout_constraintBottom_toTopOf="@+id/alterarDadosText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.324" />
+        app:layout_constraintVertical_bias="0.797" />
 
-    <!-- Título "Alterar Dados" -->
     <TextView
         android:id="@+id/alterarDadosText"
         android:layout_width="233dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="12dp"
         android:text="Alterar Dados"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
@@ -36,7 +41,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Campo de Nome -->
     <TextView
         android:id="@+id/nomeLabel"
         android:layout_width="wrap_content"
@@ -66,6 +70,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Campo de Data de Nascimento -->
+
     <TextView
         android:id="@+id/dataNascimentoLabel"
         android:layout_width="wrap_content"
@@ -76,9 +81,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/dataNascimentoInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.201"
+        app:layout_constraintHorizontal_bias="0.278"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- Campo de Senha -->
     <EditText
         android:id="@+id/dataNascimentoInput"
         android:layout_width="262dp"
@@ -86,51 +92,51 @@
         android:layout_marginBottom="24dp"
         android:backgroundTint="#E0E0E0"
         android:hint="DD/MM/AAAA"
+        android:inputType="date"
         android:padding="12dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#A0A0A0"
-        android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/senhaLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Campo de Senha -->
+    <!-- Botão Confirmar -->
+
     <TextView
         android:id="@+id/senhaLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="Senha:"
+        android:text="Digite sua senha para alterar os dados:"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/senhaInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.201"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/senhaInput"
         android:layout_width="262dp"
         android:layout_height="46dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="#E0E0E0"
         android:hint="Senha"
+        android:inputType="textPassword"
         android:padding="12dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#A0A0A0"
-        android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/btnAlterarDados"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Botão Confirmar -->
     <Button
         android:id="@+id/btnAlterarDados"
         android:layout_width="229dp"
         android:layout_height="52dp"
-        android:layout_marginBottom="196dp"
+        android:layout_marginBottom="124dp"
         android:backgroundTint="#FF0000"
         android:padding="12dp"
         android:text="Confirmar"

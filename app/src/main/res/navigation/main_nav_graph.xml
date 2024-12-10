@@ -27,6 +27,9 @@
         android:name="com.cinemate.app.ui.fragments.main.DetalhesFilmeFragment"
         android:label="Detalhes do Filme"
         tools:layout="@layout/fragment_detalhes_filme" >
+        <argument
+            android:name="movie"
+            app:argType="com.cinemate.app.data.models.Movie" />
         <action
             android:id="@+id/action_detalhesFilmeFragment_to_publicarReviewFragment"
             app:destination="@id/publicarReviewFragment" />
@@ -85,15 +88,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/recomendarFilmeFragment"
-        android:name="com.cinemate.app.ui.fragments.main.RecomendarFilmeFragment"
-        android:label="Recomendar Filme"
-        tools:layout="@layout/fragment_recomendar_filme" >
-        <action
-            android:id="@+id/action_recomendarFilmeFragment_to_feedFragment"
-            app:destination="@id/feedFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/responderReviewFragment"
         android:name="com.cinemate.app.ui.fragments.main.ResponderReviewFragment"
         android:label="fragment_responder_review"
@@ -101,5 +95,14 @@
         <action
             android:id="@+id/action_responderReviewFragment_to_detalhesFilmeFragment"
             app:destination="@id/detalhesFilmeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recomendarFilmeFragment"
+        android:name="com.cinemate.app.ui.fragments.main.RecomendarFilmeFragment"
+        android:label="fragment_recomendar_filme"
+        tools:layout="@layout/fragment_recomendar_filme" >
+        <action
+            android:id="@+id/action_recomendarFilmeFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
 </navigation>
