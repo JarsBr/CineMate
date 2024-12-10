@@ -106,4 +106,22 @@
             android:id="@+id/action_adicionarFilmeFragment_to_filmesCadastradosFragment"
             app:destination="@id/filmesCadastradosFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/usuariosCadastradosFragment"
+        android:name="com.cinemate.app.ui.fragments.admin.UsuariosCadastradosFragment"
+        android:label="Usuários Cadastrados"
+        tools:layout="@layout/fragment_usuarios_cadastrados"
+        tools:ignore="DuplicateIds">
+        <action
+            android:id="@+id/action_usuariosCadastradosFragment_to_gestaoUsuarioFragment"
+            app:destination="@id/gestaoUsuarioFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/gestaoUsuarioFragment"
+        android:name="com.cinemate.app.ui.fragments.admin.GestaoUsuarioFragment"
+        android:label="Gestão de Usuário"
+        tools:layout="@layout/fragment_gestao_usuario" />
+
 </navigation>
