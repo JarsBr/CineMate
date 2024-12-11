@@ -19,6 +19,9 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
     private val _showNoMoviesMessage = MutableLiveData<Boolean>()
     val showNoMoviesMessage: LiveData<Boolean> get() = _showNoMoviesMessage
 
+    private val _favoriteMovies = MutableLiveData<List<Movie>>()
+    val favoriteMovies: LiveData<List<Movie>> get() = _favoriteMovies
+
     init {
         fetchMovies()
     }
@@ -48,4 +51,18 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
         _filteredMovies.value = filtered
         _showNoMoviesMessage.value = filtered.isEmpty()
     }
+
+    fun fetchFavorites(favoriteMovieIds: List<String>) {
+        viewModelScope.launch {
+            try {
+                val allMovies = movieRepository.getMovies() ?: emptyList()
+                val favorites = allMovies.filter { favoriteMovieIds.contains(it.id) }
+                _favoriteMovies.value = favorites
+            } catch (e: Exception) {
+                _favoriteMovies.value = emptyList()
+            }
+        }
+    }
+
+
 }
