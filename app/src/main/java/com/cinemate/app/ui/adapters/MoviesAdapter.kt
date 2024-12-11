@@ -90,6 +90,8 @@ class MoviesAdapter {
     }
 
 
+
+
     class MoviesListAdapter(
         private val onItemClick: (Movie) -> Unit,
         private val onFavoriteClick: ((String, Boolean) -> Unit)? = null,

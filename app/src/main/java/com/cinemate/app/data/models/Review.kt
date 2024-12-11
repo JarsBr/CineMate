@@ -11,8 +11,8 @@ data class Review(
     val idFilme: String = "",
     val idUsuario: String = "",
     val nota: Int = 0,
-    val nomeUsuario: String = "", // Novo campo para armazenar o nome do usuário
-    val id: String = "" // Adicionando o campo id do documento
+    val nomeUsuario: String = "",
+    val id: String = ""
 ) : Parcelable {
     fun toTimestamp(): Timestamp = Timestamp(dataCriacao / 1000, (dataCriacao % 1000).toInt())
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardBackgroundColor="#FFFFFF"
+    android:background="@drawable/rounded_background_text"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
 
@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Nome do usuário -->
         <TextView
             android:id="@+id/txtUserName"
             android:layout_width="0dp"
@@ -26,7 +25,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- E-mail do usuário -->
         <TextView
             android:id="@+id/txtUserEmail"
             android:layout_width="0dp"

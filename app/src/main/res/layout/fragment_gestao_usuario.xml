@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -7,45 +9,84 @@
     android:background="#090F13"
     android:gravity="center">
 
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="170dp"
+        android:layout_marginBottom="12dp"
+        android:contentDescription="Logo Cinemate"
+        android:src="@drawable/logo_stretched"
+        app:layout_constraintBottom_toTopOf="@+id/dadosLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnknownIdInLayout" />
+
+    <TextView
+        android:id="@+id/dadosLabel"
+        android:layout_width="312dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="24dp"
+        android:text="Detalhes do Usuário:"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtUserName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="UnknownIdInLayout" />
+
     <TextView
         android:id="@+id/txtUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
         android:text="Nome"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtUserType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtUserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="392dp"
         android:text="Email"
         android:textColor="#FFFFFF"
-        android:layout_marginTop="8dp"/>
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtUserBirthDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
         android:text="Data de Nascimento"
         android:textColor="#FFFFFF"
-        android:layout_marginTop="8dp"/>
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtUserEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtUserType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
         android:text="Tipo de Usuário"
         android:textColor="#FFFFFF"
-        android:layout_marginTop="8dp"/>
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtUserBirthDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/txtUserFavorites"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Filmes Favoritos"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="8dp"/>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

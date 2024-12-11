@@ -26,6 +26,20 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
         fetchMovies()
     }
 
+    fun fetchMovieDetails(movieId: String, callback: (Movie?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val allMovies = movieRepository.getMovies() ?: emptyList()
+                val movie = allMovies.find { it.id == movieId }
+                callback(movie)
+            } catch (e: Exception) {
+                callback(null)
+            }
+        }
+    }
+
+
+
     private fun fetchMovies() {
         viewModelScope.launch {
             try {

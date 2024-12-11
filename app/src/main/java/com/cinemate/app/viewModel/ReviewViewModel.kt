@@ -26,7 +26,6 @@ class ReviewViewModel : ViewModel() {
                     .await()
 
                 val reviewsList = documents.map { doc ->
-                    // Obtendo o nome do usuário
                     val userId = doc.getString("id_usuario") ?: ""
                     val userName = if (userId.isNotEmpty()) {
                         db.collection("usuarios").document(userId).get().await().getString("nome") ?: "Usuário desconhecido"
@@ -53,15 +52,14 @@ class ReviewViewModel : ViewModel() {
                         idFilme = doc.getString("id_filme") ?: "",
                         idUsuario = userId,
                         nota = doc.getLong("nota")?.toInt() ?: 0,
-                        nomeUsuario = userName, // Passando o nome do usuário
-                        id = doc.id // Aqui adiciona o ID do documento
+                        nomeUsuario = userName,
+                        id = doc.id
                     )
                 }
 
                 _reviews.postValue(reviewsList)
             } catch (e: Exception) {
                 e.printStackTrace()
-                // Adicione lógica para tratar erros, se necessário
             }
         }
     }

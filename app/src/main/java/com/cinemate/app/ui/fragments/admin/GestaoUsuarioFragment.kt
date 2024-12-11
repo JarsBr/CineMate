@@ -26,27 +26,20 @@ class GestaoUsuarioFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializando as views
         txtUserName = view.findViewById(R.id.txtUserName)
         txtUserEmail = view.findViewById(R.id.txtUserEmail)
         txtUserBirthDate = view.findViewById(R.id.txtUserBirthDate)
         txtUserType = view.findViewById(R.id.txtUserType)
-        txtUserFavorites = view.findViewById(R.id.txtUserFavorites)
 
-        // Recupera os parâmetros passados pelo Bundle
         val nome = arguments?.getString("nome") ?: "Nome não disponível"
         val email = arguments?.getString("email") ?: "Email não disponível"
         val dataNascimento = arguments?.getString("data_nascimento") ?: "Data não disponível"
         val tipoUsuario = arguments?.getString("tipo_usuario") ?: "Tipo não disponível"
-        val filmesFavoritos = arguments?.getStringArray("filmes_favoritos")?.joinToString("\n") ?: "Nenhum filme favorito"
 
 
-
-        // Exibe os dados no layout
         txtUserName.text = "Nome: $nome"
         txtUserEmail.text = "Email: $email"
         txtUserBirthDate.text = "Data de Nascimento: $dataNascimento"
         txtUserType.text = "Tipo de Usuário: $tipoUsuario"
-        txtUserFavorites.text = "Filmes Favoritos:\n$filmesFavoritos"
     }
 }
