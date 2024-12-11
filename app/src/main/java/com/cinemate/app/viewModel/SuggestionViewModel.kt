@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cinemate.app.data.models.Suggestion
 import com.cinemate.app.data.repositories.SuggestionRepository
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
 class SuggestionViewModel(private val repository: SuggestionRepository) : ViewModel() {
@@ -15,6 +16,21 @@ class SuggestionViewModel(private val repository: SuggestionRepository) : ViewMo
                 .onFailure {
                     onFailure(it as? Exception ?: Exception(it))
                 }
+        }
+    }
+
+    fun deleteSuggestion(
+        suggestionId: String,
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        viewModelScope.launch {
+            try {
+                repository.deleteSuggestion(suggestionId)
+                onSuccess()
+            } catch (e: Exception) {
+                onFailure(e)
+            }
         }
     }
 }

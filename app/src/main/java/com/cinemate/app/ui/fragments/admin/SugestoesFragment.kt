@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cinemate.app.data.models.Suggestion
-import com.cinemate.app.ui.adapters.SugestoesAdapter
+import com.cinemate.app.ui.adapters.SuggestionAdapter
 import com.cinemate.app.databinding.FragmentSugestoesBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -18,7 +18,7 @@ class SugestoesFragment : Fragment() {
     private var _binding: FragmentSugestoesBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var suggestionAdapter: SugestoesAdapter
+    private lateinit var suggestionAdapter: SuggestionAdapter
     private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
@@ -32,7 +32,6 @@ class SugestoesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
 
@@ -40,9 +39,17 @@ class SugestoesFragment : Fragment() {
             .get()
             .addOnSuccessListener { documents ->
                 val suggestions = documents.map { document ->
-                    Suggestion(suggestionText = document.getString("suggestionText") ?: "")
+                    Suggestion(
+                        id = document.id,
+                        suggestionText = document.getString("suggestionText") ?: ""
+                    )
                 }
-                suggestionAdapter = SugestoesAdapter(suggestions)
+
+
+                suggestionAdapter = SuggestionAdapter(suggestions) { suggestionId ->
+                    deleteSuggestion(suggestionId)
+                }
+
                 binding.recyclerView.adapter = suggestionAdapter
             }
             .addOnFailureListener { exception ->
@@ -52,8 +59,53 @@ class SugestoesFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-
                 Log.e("SugestoesFragment", "Erro ao buscar sugestões", exception)
+            }
+    }
+
+    // deletar sugestão no Firestore
+    private fun deleteSuggestion(suggestionId: String) {
+        firestore.collection("suggestions")
+            .document(suggestionId)
+            .delete()
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Sugestão excluída com sucesso!", Toast.LENGTH_SHORT).show()
+                refreshSuggestions()
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(
+                    requireContext(),
+                    "Erro ao excluir sugestão: ${exception.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Log.e("SugestoesFragment", "Erro ao excluir sugestão", exception)
+            }
+    }
+
+    // recarregar as sugestões após exclusão
+    private fun refreshSuggestions() {
+        firestore.collection("suggestions")
+            .get()
+            .addOnSuccessListener { documents ->
+                val suggestions = documents.map { document ->
+                    Suggestion(
+                        id = document.id,
+                        suggestionText = document.getString("suggestionText") ?: ""
+                    )
+                }
+
+                suggestionAdapter = SuggestionAdapter(suggestions) { suggestionId ->
+                    deleteSuggestion(suggestionId)
+                }
+
+                binding.recyclerView.adapter = suggestionAdapter
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(
+                    requireContext(),
+                    "Erro ao recarregar sugestões: ${exception.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
     }
 

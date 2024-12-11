@@ -6,13 +6,38 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="4dp"
     app:cardElevation="2dp"
-    tools:context="com.cinemate.app.ui.adapters.SugestoesAdapter">
+    tools:context="com.cinemate.app.ui.adapters.SuggestionAdapter">
 
-    <TextView
-        android:id="@+id/suggestionText"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:padding="16dp" />
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/suggestionText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Texto da sugestão"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnDeleteSuggestion"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp" />
+
+        <ImageButton
+            android:id="@+id/btnDeleteSuggestion"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Deletar Sugestão"
+            android:src="@drawable/trash"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>
