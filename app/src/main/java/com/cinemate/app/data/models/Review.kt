@@ -1,11 +1,21 @@
 package com.cinemate.app.data.models
+
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import com.google.firebase.Timestamp
 
+@Parcelize
 data class Review(
     val comentario: String = "",
-    val dataCriacao: Timestamp = Timestamp.now(),
+    val dataCriacao: Long = System.currentTimeMillis(),
     val idFilme: String = "",
     val idUsuario: String = "",
     val nota: Int = 0,
-    val respostas: List<Response> = listOf()
-)
+    val nomeUsuario: String = "", // Novo campo para armazenar o nome do usuário
+    val id: String = "" // Adicionando o campo id do documento
+) : Parcelable {
+    fun toTimestamp(): Timestamp = Timestamp(dataCriacao / 1000, (dataCriacao % 1000).toInt())
+}
+
+
+

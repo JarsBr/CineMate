@@ -1,4 +1,5 @@
 package com.cinemate.app.data.models
+
 import com.google.firebase.Timestamp
 
 data class Response(

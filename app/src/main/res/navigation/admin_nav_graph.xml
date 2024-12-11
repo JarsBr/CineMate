@@ -61,6 +61,7 @@
             app:destination="@id/atualizarFilmeFragment" />
     </fragment>
 
+
     <fragment
         android:id="@+id/gestaoRepostasFragment"
         android:name="com.cinemate.app.ui.fragments.admin.GestaoRepostasFragment"
@@ -123,5 +124,6 @@
         android:name="com.cinemate.app.ui.fragments.admin.GestaoUsuarioFragment"
         android:label="Gestão de Usuário"
         tools:layout="@layout/fragment_gestao_usuario" />
+
 
 </navigation>

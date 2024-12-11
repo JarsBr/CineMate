@@ -5,19 +5,54 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cinemate.app.R
+import com.cinemate.app.databinding.FragmentGestaoReviewBinding
+import com.cinemate.app.ui.adapters.ReviewsAdapter
+import com.cinemate.app.viewModel.ReviewViewModel
 
 class GestaoReviewFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private var _binding: FragmentGestaoReviewBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: ReviewViewModel by viewModels() // Aqui é a inicialização do ViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_gestao_review, container, false)
+    ): View {
+        _binding = FragmentGestaoReviewBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Obtenha o filmId a partir do Bundle
+        val filmId = arguments?.getString("filmId") ?: return
+
+        viewModel.fetchReviews(filmId)
+
+        viewModel.reviews.observe(viewLifecycleOwner) { reviews ->
+            binding.recyclerViewReviews.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = ReviewsAdapter(reviews) { review ->
+                    val bundle = Bundle().apply {
+                        putString("reviewId", review.id) // Passando o ID da review
+                    }
+                    findNavController().navigate(R.id.action_gestaoReviewFragment_to_gestaoRepostasFragment, bundle)
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
+
+
+

@@ -69,8 +69,13 @@ class AtualizarFilmeFragment: Fragment() {
         }
 
         binding.btnVerReviews.setOnClickListener {
-            findNavController().navigate(R.id.action_atualizarFilmeFragment_to_gestaoReviewFragment)
+            val filmId = movie.id  // Aqui você pega o filme selecionado
+            val bundle = Bundle().apply {
+                putString("filmId", filmId)  // Adiciona o filmId ao Bundle
+            }
+            findNavController().navigate(R.id.action_atualizarFilmeFragment_to_gestaoReviewFragment, bundle)
         }
+
     }
 
     private fun populateFields(movie: Movie) {
