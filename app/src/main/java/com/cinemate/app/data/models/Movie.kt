@@ -15,5 +15,6 @@ data class Movie(
     val imagemUrl: String = "",
     val mediaAvaliacao: Float = 0f,
     val ondeAssistir: List<String> = emptyList(),
-    val sinopse: String = ""
+    val sinopse: String = "",
+    var isFavorite: Boolean = false
 ) : Parcelable

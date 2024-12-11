@@ -35,7 +35,6 @@ class MovieRepository(private val db: FirebaseFirestore) {
                 docRef
             }
 
-            // Atualiza o ID no objeto Movie
             movie.id = documentReference.id
             Result.success(Unit)
         } catch (e: Exception) {

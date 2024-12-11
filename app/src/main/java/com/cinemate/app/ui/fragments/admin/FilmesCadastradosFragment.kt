@@ -54,16 +54,20 @@ class FilmesCadastradosFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        moviesAdapter = MoviesAdapter.MoviesListAdapter { selectedMovie ->
-            val action = FilmesCadastradosFragmentDirections
-                .actionFilmesCadastradosFragmentToAtualizarFilmeFragment(selectedMovie)
-            findNavController().navigate(action)
-        }
+        moviesAdapter = MoviesAdapter.MoviesListAdapter(
+            onItemClick = { selectedMovie ->
+                val action = FilmesCadastradosFragmentDirections
+                    .actionFilmesCadastradosFragmentToAtualizarFilmeFragment(selectedMovie)
+                findNavController().navigate(action)
+            },
+            layoutId = R.layout.item_movie_card
+        )
         binding.recyclerViewFilmes.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = moviesAdapter
         }
     }
+
 
 
     private fun setupSearch() {

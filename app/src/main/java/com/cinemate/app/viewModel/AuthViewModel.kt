@@ -19,6 +19,25 @@ class AuthViewModel : ViewModel() {
         fetchUserDetails()
     }
 
+    fun updateUserFavorites(updatedFavorites: List<String>, callback: (Boolean) -> Unit) {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
+            callback(false)
+            return
+        }
+
+        val userId = currentUser.uid
+        val userDocument = FirebaseFirestore.getInstance().collection("usuarios").document(userId)
+
+        userDocument.update("filmes_favoritos", updatedFavorites)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    fetchUserDetails()
+                }
+                callback(task.isSuccessful)
+            }
+    }
+
     fun fetchUserDetails() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
         FirebaseFirestore.getInstance().collection("usuarios").document(userId)

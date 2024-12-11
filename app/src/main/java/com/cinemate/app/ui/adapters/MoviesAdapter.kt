@@ -50,7 +50,6 @@ class MoviesAdapter {
     }
 
 
-
     class OndeAssistirAdapter(
         private val plataformasList: List<Plataforma>,
         private val selectedPlataformas: List<String>,
@@ -91,28 +90,35 @@ class MoviesAdapter {
     }
 
 
-
-    class MoviesListAdapter(private val onItemClick: (Movie) -> Unit) :
-        ListAdapter<Movie, MoviesListAdapter.MovieViewHolder>(MovieDiffCallback()) {
+    class MoviesListAdapter(
+        private val onItemClick: (Movie) -> Unit,
+        private val onFavoriteClick: ((String, Boolean) -> Unit)? = null,
+        private val layoutId: Int = R.layout.item_movie_card,
+        var favoriteMovies: List<String> = emptyList()
+    ) : ListAdapter<Movie, MoviesListAdapter.MovieViewHolder>(MovieDiffCallback()) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_movie_card, parent, false)
-            return MovieViewHolder(view, onItemClick)
+            val view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
+            return MovieViewHolder(view, onItemClick, onFavoriteClick)
         }
 
         override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
             val movie = getItem(position)
-            holder.bind(movie)
+            val isFavorite = favoriteMovies.contains(movie.id)
+            holder.bind(movie, isFavorite)
         }
 
-        class MovieViewHolder(itemView: View, private val onItemClick: (Movie) -> Unit) :
-            RecyclerView.ViewHolder(itemView) {
+        class MovieViewHolder(
+            itemView: View,
+            private val onItemClick: (Movie) -> Unit,
+            private val onFavoriteClick: ((String, Boolean) -> Unit)?
+        ) : RecyclerView.ViewHolder(itemView) {
             private val movieImage: ImageView = itemView.findViewById(R.id.movieImage)
             private val movieTitle: TextView = itemView.findViewById(R.id.movieTitle)
             private val movieRating: TextView = itemView.findViewById(R.id.movieRating)
+            private val movieFavorite: ImageView? = itemView.findViewById(R.id.movieFavorite)
 
-            fun bind(movie: Movie) {
+            fun bind(movie: Movie, isFavorite: Boolean) {
                 movieTitle.text = movie.titulo
                 movieRating.text = movie.mediaAvaliacao.toString()
 
@@ -124,14 +130,25 @@ class MoviesAdapter {
                 itemView.setOnClickListener {
                     onItemClick(movie)
                 }
+
+                movieFavorite?.apply {
+                    val favoriteIcon = if (isFavorite) {
+                        R.drawable.ic_favorite
+                    } else {
+                        R.drawable.ic_favorite_lesser
+                    }
+                    setImageResource(favoriteIcon)
+
+                    setOnClickListener {
+                        onFavoriteClick?.invoke(movie.id, !isFavorite)
+                    }
+                }
             }
         }
 
-
-
-    class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
+        class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
             override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-                return oldItem.titulo == newItem.titulo
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
@@ -139,6 +156,7 @@ class MoviesAdapter {
             }
         }
     }
+
 }
 
 
