@@ -45,7 +45,8 @@
         app:boxCornerRadiusTopStart="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sugestoesLabel">
+        app:layout_constraintTop_toBottomOf="@+id/sugestoesLabel"
+        app:hintEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
