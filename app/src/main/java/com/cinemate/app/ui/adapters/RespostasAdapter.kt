@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cinemate.app.R
 import com.cinemate.app.data.models.Response
+import androidx.recyclerview.widget.ItemTouchHelper
 
 class RespostasAdapter(
     private var respostas: List<Response>
@@ -33,5 +34,25 @@ class RespostasAdapter(
         holder.tvData.text = "Data: ${resposta.dataCriacao.toDate()}"
     }
 
+    fun getRespostaAt(position: Int): Response {
+        if (position in 0 until respostas.size) {
+            return respostas[position]
+        } else {
+            throw IndexOutOfBoundsException("Invalid position: $position")
+        }
+    }
+
+
+
+    fun removeAt(position: Int) {
+        val newRespostas = respostas.toMutableList()
+        newRespostas.removeAt(position)
+        respostas = newRespostas
+        notifyItemRemoved(position)
+    }
+
+
     override fun getItemCount(): Int = respostas.size
+
+
 }

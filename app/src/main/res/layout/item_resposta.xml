@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp"
-    android:background="?attr/selectableItemBackground">
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
-    <TextView
-        android:id="@+id/tvRespostaComentario"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Resposta"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvRespostaData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Data: 2024-12-10"
-        android:textColor="#CCCCCC"
-        android:textSize="14sp" />
-</LinearLayout>
+        <!-- Comentário da resposta -->
+        <TextView
+            android:id="@+id/tvRespostaComentario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resposta"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Data da resposta -->
+        <TextView
+            android:id="@+id/tvRespostaData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data: 2024-12-10"
+            android:textColor="#666666"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -40,12 +40,13 @@ class GestaoReviewFragment : Fragment() {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = ReviewsAdapter(reviews) { review ->
                     val bundle = Bundle().apply {
-                        putString("reviewId", review.id) // Passando o ID da review
+                        putString("reviewId", review.id) // Passa o ID da Review
                     }
                     findNavController().navigate(R.id.action_gestaoReviewFragment_to_gestaoRepostasFragment, bundle)
                 }
             }
         }
+
     }
 
     override fun onDestroyView() {
