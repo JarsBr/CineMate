@@ -15,6 +15,15 @@ class DetalhesFilmeFragment : Fragment() {
     private var _binding: FragmentDetalhesFilmeBinding? = null
     private val binding get() = _binding!!
 
+    private var movieId: String? = null // Armazena o ID do filme selecionado
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            movieId = it.getString("movieId") // Recupera o ID do filme
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,6 +35,8 @@ class DetalhesFilmeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<View>(R.id.bottomNavigation)?.visibility = View.GONE
+
+        binding.textViewMovieId.text = movieId
     }
 
     override fun onDestroyView() {
@@ -34,3 +45,4 @@ class DetalhesFilmeFragment : Fragment() {
         _binding = null
     }
 }
+

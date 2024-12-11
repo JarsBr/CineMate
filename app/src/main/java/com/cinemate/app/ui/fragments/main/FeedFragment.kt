@@ -132,7 +132,7 @@ class FeedFragment : Fragment() {
     private fun openDetalhesFilmeFragment(selectedMovie: Movie) {
         val detalhesFilmeFragment = DetalhesFilmeFragment().apply {
             arguments = Bundle().apply {
-                putParcelable("selectedMovie", selectedMovie)
+                putString("movieId", selectedMovie.id)
             }
         }
 

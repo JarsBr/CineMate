@@ -12,12 +12,12 @@
         android:id="@+id/logoImage"
         android:layout_width="187dp"
         android:layout_height="65dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="180dp"
         android:contentDescription="Logo Cinemate"
         android:src="@drawable/logo_stretched"
         app:layout_constraintBottom_toTopOf="@+id/detalhesLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,13 +25,24 @@
         android:id="@+id/detalhesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="596dp"
+        android:layout_marginBottom="24dp"
         android:text="Detalhes do Filme:"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewMovieId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewMovieId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="528dp"
+        android:text="Id do Filme"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
