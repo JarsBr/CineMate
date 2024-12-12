@@ -6,20 +6,31 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AuthViewModel : ViewModel() {
+
     val user = MutableLiveData<FirebaseUser?>()
     val userDetails = MutableLiveData<Map<String, Any?>>()
-    val userDocumentId = MutableLiveData<String>()
 
     init {
         user.value = FirebaseAuth.getInstance().currentUser
         fetchUserDetails()
     }
 
+    fun getCurrentUserId(): String? {
+        return FirebaseAuth.getInstance().currentUser?.uid
+    }
+
     fun updateUserFavorites(updatedFavorites: List<String>, callback: (Boolean) -> Unit) {
-        val userId = userDocumentId.value ?: return callback(false)
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
+            callback(false)
+            return
+        }
+
+        val userId = currentUser.uid
         val userDocument = FirebaseFirestore.getInstance().collection("usuarios").document(userId)
 
         userDocument.update("filmes_favoritos", updatedFavorites)
@@ -41,12 +52,14 @@ class AuthViewModel : ViewModel() {
             }
     }
 
-    fun getCurrentUserId(): String? {
-        return FirebaseAuth.getInstance().currentUser?.uid
-    }
-
     fun updateProfile(newName: String, newDataNascimento: String, callback: (Boolean) -> Unit) {
-        val userId = userDocumentId.value ?: return callback(false)
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
+            callback(false)
+            return
+        }
+
+        val userId = currentUser.uid
         val userDocument = FirebaseFirestore.getInstance().collection("usuarios").document(userId)
 
         val updatedData = mapOf(
@@ -56,7 +69,7 @@ class AuthViewModel : ViewModel() {
 
         userDocument.update(updatedData).addOnCompleteListener { firestoreTask ->
             if (firestoreTask.isSuccessful) {
-                fetchUserDetails()
+                fetchUserDetails() // Atualiza os dados depois de salvar
             }
             callback(firestoreTask.isSuccessful)
         }
@@ -69,19 +82,21 @@ class AuthViewModel : ViewModel() {
             return
         }
 
+        // Reautentica o usuário com a senha fornecida
         val credential = EmailAuthProvider.getCredential(currentUser.email!!, password)
         currentUser.reauthenticate(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                // Se a reautenticação for bem-sucedida, atualiza o perfil
                 updateProfile(newName, newDataNascimento, callback)
             } else {
-                callback(false)
+                callback(false) // Reautenticação falhou
             }
         }
     }
 
     fun refreshUserData() {
-        user.value = FirebaseAuth.getInstance().currentUser
-        fetchUserDetails()
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        user.value = currentUser // Atualiza o LiveData com o usuário atual
+        fetchUserDetails() // Sempre recarrega os detalhes do usuário
     }
 }
-
