@@ -1,14 +1,15 @@
 package com.cinemate.app.ui.fragments.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.cinemate.app.R
 import com.cinemate.app.data.models.Movie
@@ -18,6 +19,7 @@ import com.cinemate.app.ui.adapters.MoviesAdapter
 import com.cinemate.app.viewModel.AuthViewModel
 import com.cinemate.app.viewModel.MovieViewModel
 import com.cinemate.app.viewModel.MovieViewModelFactory
+import com.cinemateapp.utils.Constants
 import com.google.firebase.firestore.FirebaseFirestore
 
 class DetalhesFilmeFragment : Fragment() {
@@ -44,8 +46,15 @@ class DetalhesFilmeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        activity?.findViewById<View>(R.id.bottomNavigation)?.visibility = View.GONE
         _binding = FragmentDetalhesFilmeBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        activity?.findViewById<View>(R.id.bottomNavigation)?.visibility = View.VISIBLE
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,10 +65,6 @@ class DetalhesFilmeFragment : Fragment() {
 
         binding.btnFazerReview.setOnClickListener {
             currentMovie?.let { movie -> openPublicarReviewFragment(movie) }
-        }
-
-        binding.btnResponderReview.setOnClickListener {
-            currentMovie?.let { movie -> openResponderReviewFragment(movie) }
         }
     }
 
@@ -77,17 +82,33 @@ class DetalhesFilmeFragment : Fragment() {
         }
     }
 
+    private fun setupOndeAssistirRecyclerView(plataformasDisponiveis: List<Constants.Plataforma>) {
+        val ondeAssistirAdapter = MoviesAdapter.OndeAssistirAdapter(
+            plataformasList = plataformasDisponiveis,
+            selectedPlataformas = emptyList(),
+            onPlataformaChecked = { plataforma, _ ->
+            },
+            isDetalhesFragment = true
+        )
+
+        binding.ondeAssistirRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = ondeAssistirAdapter
+        }
+    }
+
+
+
+
     private fun populateMovieDetails(movie: Movie) {
         val movieImage = binding.imageMovie.movieImage
         val movieFavorite = binding.imageMovie.movieFavorite
 
-        // Configura a imagem do filme
         Glide.with(this)
             .load(movie.imagemUrl)
             .placeholder(R.drawable.placeholder_image)
             .into(movieImage)
 
-        // Configura o botão de favorito
         authViewModel.userDetails.observe(viewLifecycleOwner) { userDetails ->
             val favoriteMovies = userDetails["filmes_favoritos"] as? List<String> ?: emptyList()
             val isFavorite = favoriteMovies.contains(movie.id)
@@ -104,7 +125,6 @@ class DetalhesFilmeFragment : Fragment() {
             }
         }
 
-        // Popula os outros detalhes
         binding.tituloLabel.text = "Título: ${movie.titulo}"
         binding.notaLabel.text = "Nota: ${movie.mediaAvaliacao}"
         binding.generosLabel.text = "Gênero: ${movie.genero.joinToString(", ")}"
@@ -113,10 +133,13 @@ class DetalhesFilmeFragment : Fragment() {
         binding.faixaEtariaLabel.text = "Faixa etária: ${movie.faixaEtaria}"
         binding.sinopseLabel.text = "Sinopse: ${movie.sinopse}"
         binding.atoresLabel.text = "Atores principais: ${movie.atoresPrincipais}"
+
+        val plataformasDisponiveis = movie.ondeAssistir.mapNotNull { plataformaNome ->
+            Constants.ondeAssistirList.find { it.nome == plataformaNome }
+        }
+
+        setupOndeAssistirRecyclerView(plataformasDisponiveis)
     }
-
-
-
 
 
     private fun setupFavoriteButton(movie: Movie) {
@@ -175,26 +198,10 @@ class DetalhesFilmeFragment : Fragment() {
 
         requireActivity().supportFragmentManager.beginTransaction()
             .add(R.id.fragmentContainer, publicarReviewFragment, "PublicarReview")
-            .addToBackStack("PublicarReview")
+            .setReorderingAllowed(false)
+            .addToBackStack(null)
             .commit()
     }
 
-    private fun openResponderReviewFragment(movie: Movie) {
-        val responderReviewFragment = ResponderReviewFragment().apply {
-            arguments = Bundle().apply {
-                putString("movieId", movie.id)
-            }
-        }
-
-        requireActivity().supportFragmentManager.beginTransaction()
-            .add(R.id.fragmentContainer, responderReviewFragment, "ResponderReview")
-            .addToBackStack("ResponderReview")
-            .commit()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        activity?.findViewById<View>(R.id.bottomNavigation)?.visibility = View.VISIBLE
-        _binding = null
-    }
 }
+

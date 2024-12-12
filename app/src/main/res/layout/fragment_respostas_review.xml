@@ -1,69 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:background="#090F13"
     tools:context="com.cinemate.app.ui.fragments.main.RespostasReviewFragment">
 
     <!-- Exibição da review -->
+
+    <!-- RecyclerView para respostas -->
+
+    <!-- Botão para adicionar resposta -->
+
+    <ImageView
+        android:id="@+id/logoImage2"
+        android:layout_width="187dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="Logo Cinemate"
+        android:src="@drawable/logo_stretched"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewRespostas"
+        tools:layout_editor_absoluteX="16dp">
 
         <TextView
             android:id="@+id/tvRespostasEmpty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nenhuma resposta encontrada."
-            android:visibility="gone"
-            android:textSize="16sp"
-            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:layout_gravity="center"/>
+            android:text="Nenhuma resposta encontrada."
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tvReviewComentario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Comentário da review"
+            android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvReviewNota"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nota da review"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvReviewUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Usuário da review"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
     </LinearLayout>
 
-    <!-- RecyclerView para respostas -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRespostas"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="388dp"
+        android:layout_height="430dp"
+        android:layout_marginBottom="16dp"
         android:layout_weight="1"
-        android:padding="8dp"/>
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddResposta"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="11dp" />
 
-    <!-- Botão para adicionar resposta -->
     <Button
         android:id="@+id/buttonAddResposta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Adicionar Resposta"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/black"
-        android:textColor="@android:color/white"/>
-</LinearLayout>
+        android:backgroundTint="#FF0000"
+        android:text="Adicionar Resposta"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

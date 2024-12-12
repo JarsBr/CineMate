@@ -25,35 +25,36 @@
         android:id="@+id/reviewsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:text="Lista de Reviews:"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
-        app:layout_constraintTop_toBottomOf="@id/logoImage"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewReviews"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewReviews" />
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewReviews"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="388dp"
+        android:layout_height="526dp"
+        android:layout_marginBottom="16dp"
         android:clipToPadding="false"
         android:padding="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/reviewsLabel"
         app:layout_constraintBottom_toTopOf="@id/buttonAddReview"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonAddReview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Adicionar Review"
         android:layout_margin="16dp"
+        android:backgroundTint="#FF0000"
+        android:text="Adicionar Review"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

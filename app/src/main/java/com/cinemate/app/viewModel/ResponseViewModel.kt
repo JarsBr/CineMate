@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cinemate.app.data.models.Response
 import com.cinemate.app.data.models.Review
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,7 +46,7 @@ class ResponseViewModel : ViewModel() {
                     Response(
                         id = doc.id,
                         comentario = doc.getString("comentario") ?: "",
-                        dataCriacao = doc.getTimestamp("dataCriacao") ?: com.google.firebase.Timestamp.now(),
+                        dataCriacao = doc.getTimestamp("data_criacao") ?: Timestamp.now(),
                         idReview = doc.getString("idReview") ?: ""
                     )
                 }

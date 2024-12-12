@@ -80,14 +80,16 @@ class AdicionarFilmeFragment : Fragment() {
     private fun setupOndeAssistirRecyclerView(selectedPlataformas: List<String>) {
         val ondeAssistirAdapter = MoviesAdapter.OndeAssistirAdapter(
             Constants.ondeAssistirList,
-            selectedPlataformas
-        ) { plataforma, isChecked ->
-            if (isChecked) {
-                this.selectedPlataformas.add(plataforma.nome)
-            } else {
-                this.selectedPlataformas.remove(plataforma.nome)
-            }
-        }
+            selectedPlataformas,
+            { plataforma, isChecked ->
+                if (isChecked) {
+                    this.selectedPlataformas.add(plataforma.nome)
+                } else {
+                    this.selectedPlataformas.remove(plataforma.nome)
+                }
+            },
+            isDetalhesFragment = false
+        )
         binding.ondeAssistirRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = ondeAssistirAdapter

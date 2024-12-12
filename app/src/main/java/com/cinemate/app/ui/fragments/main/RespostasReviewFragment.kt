@@ -35,8 +35,8 @@ class RespostasReviewFragment : Fragment() {
         setupRecyclerView()
         observeViewModel()
 
-        viewModel.fetchReviewById(reviewId)  // Carregar a review
-        viewModel.fetchRespostas(reviewId)  // Carregar as respostas
+        viewModel.fetchReviewById(reviewId)
+        viewModel.fetchRespostas(reviewId)
 
         binding.buttonAddResposta.setOnClickListener {
             val bundle = Bundle().apply {
@@ -86,6 +86,7 @@ class RespostasReviewFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        activity?.findViewById<View>(R.id.bottomNavigation)?.visibility = View.VISIBLE
         _binding = null
     }
 }

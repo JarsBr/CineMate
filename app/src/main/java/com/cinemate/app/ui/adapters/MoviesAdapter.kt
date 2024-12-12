@@ -1,11 +1,14 @@
 package com.cinemate.app.ui.adapters
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,6 +16,7 @@ import com.cinemate.app.R
 import com.cinemateapp.utils.Constants.Plataforma
 import androidx.recyclerview.widget.ListAdapter
 import com.cinemate.app.data.models.Movie
+import com.cinemateapp.utils.Constants
 
 class MoviesAdapter {
 
@@ -50,44 +54,82 @@ class MoviesAdapter {
     }
 
 
-    class OndeAssistirAdapter(
-        private val plataformasList: List<Plataforma>,
-        private val selectedPlataformas: List<String>,
-        private val onPlataformaChecked: (Plataforma, Boolean) -> Unit
-    ) : RecyclerView.Adapter<OndeAssistirAdapter.PlataformaViewHolder>() {
+        class OndeAssistirAdapter(
+            private val plataformasList: List<Plataforma>,
+            private val selectedPlataformas: List<String>,
+            private val onPlataformaChecked: (Plataforma, Boolean) -> Unit,
+            private val isDetalhesFragment: Boolean
+        ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlataformaViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_plataforma, parent, false)
-            return PlataformaViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: PlataformaViewHolder, position: Int) {
-            val plataforma = plataformasList[position]
-            holder.bind(plataforma, selectedPlataformas.contains(plataforma.nome))
-        }
-
-        override fun getItemCount(): Int = plataformasList.size
-
-        inner class PlataformaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            private val iconeImageView: ImageView = itemView.findViewById(R.id.iconePlataforma)
-            private val nomeTextView: TextView = itemView.findViewById(R.id.nomePlataforma)
-            private val checkBox: CheckBox = itemView.findViewById(R.id.checkboxItem)
-
-            fun bind(plataforma: Plataforma, isChecked: Boolean) {
-                nomeTextView.text = plataforma.nome
-                checkBox.isChecked = isChecked
-
-                Glide.with(itemView.context)
-                    .load(plataforma.iconeUrl)
-                    .into(iconeImageView)
-
-                checkBox.setOnCheckedChangeListener { _, isChecked ->
-                    onPlataformaChecked(plataforma, isChecked)
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+                val layoutId = if (isDetalhesFragment) {
+                    R.layout.item_plataforma_detalhes
+                } else {
+                    R.layout.item_plataforma
+                }
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(layoutId, parent, false)
+                return if (isDetalhesFragment) {
+                    DetalhesPlataformaViewHolder(view)
+                } else {
+                    PlataformaViewHolder(view)
                 }
             }
+
+            override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+                val plataforma = plataformasList[position]
+                if (holder is PlataformaViewHolder) {
+                    holder.bind(plataforma, selectedPlataformas.contains(plataforma.nome))
+                } else if (holder is DetalhesPlataformaViewHolder) {
+                    holder.bind(plataforma)
+                }
+            }
+
+            override fun getItemCount(): Int = plataformasList.size
+
+            inner class PlataformaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+                private val iconeImageView: ImageView = itemView.findViewById(R.id.iconePlataforma)
+                private val nomeTextView: TextView = itemView.findViewById(R.id.nomePlataforma)
+                private val checkBox: CheckBox = itemView.findViewById(R.id.checkboxItem)
+
+                fun bind(plataforma: Plataforma, isChecked: Boolean) {
+                    nomeTextView.text = plataforma.nome
+                    checkBox.isChecked = isChecked
+
+                    Glide.with(itemView.context)
+                        .load(plataforma.iconeUrl)
+                        .into(iconeImageView)
+
+                    checkBox.setOnCheckedChangeListener { _, isChecked ->
+                        onPlataformaChecked(plataforma, isChecked)
+                    }
+                }
+            }
+            inner class DetalhesPlataformaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+                private val iconeImageView: ImageView = itemView.findViewById(R.id.iconePlataforma)
+
+                fun bind(plataforma: Constants.Plataforma) {
+                    Glide.with(itemView.context)
+                        .load(plataforma.iconeUrl)
+                        .into(iconeImageView)
+
+                    iconeImageView.setOnClickListener {
+                        if (plataforma.link.isNotEmpty()) {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(plataforma.link))
+                            itemView.context.startActivity(intent)
+                        } else {
+                            Toast.makeText(
+                                itemView.context,
+                                "Link não disponível para esta plataforma.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            }
+
         }
-    }
+
 
 
 

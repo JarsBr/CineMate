@@ -24,24 +24,25 @@
         android:id="@+id/sugestoesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="596dp"
+        android:layout_marginBottom="24dp"
         android:text="Responder Review:"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/etRespostaComentario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/etRespostaComentario"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_width="313dp"
+        android:layout_height="61dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#FFFFFF"
         android:hint="Digite sua resposta..."
-        android:textColor="#FFFFFF"
         android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/sugestoesLabel"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/btnSubmeterResposta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -49,11 +50,13 @@
         android:id="@+id/btnSubmeterResposta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submeter"
+        android:layout_marginBottom="392dp"
+        android:backgroundTint="#FF0000"
+        android:text="Adicionar Resposta"
         android:textColor="#FFFFFF"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/etRespostaComentario"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

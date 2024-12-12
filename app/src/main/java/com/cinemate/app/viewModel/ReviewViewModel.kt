@@ -26,6 +26,34 @@ class ReviewViewModel : ViewModel() {
             }
     }
 
+    fun updateMovieRating(filmId: String) {
+        db.collection("reviews")
+            .whereEqualTo("id_filme", filmId)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val reviews = task.result
+                    val totalReviews = reviews.size()
+                    if (totalReviews > 0) {
+                        val totalRating = reviews.sumOf { it.getLong("nota")?.toDouble() ?: 0.0 }
+                        val averageRating = totalRating / totalReviews
+
+                        db.collection("filmes").document(filmId)
+                            .update("mediaAvaliacao", averageRating.toFloat())
+                            .addOnSuccessListener {
+                                Log.d("ReviewViewModel", "mediaAvaliacao atualizada com sucesso!")
+                            }
+                            .addOnFailureListener { exception ->
+                                Log.e("ReviewViewModel", "Erro ao atualizar mediaAvaliacao", exception)
+                            }
+                    }
+                } else {
+                    Log.e("ReviewViewModel", "Erro ao buscar reviews para calcular a média", task.exception)
+                }
+            }
+    }
+
+
     fun fetchReviews(filmId: String) {
         db.collection("reviews")
             .whereEqualTo("id_filme", filmId)

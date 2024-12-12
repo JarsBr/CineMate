@@ -69,9 +69,9 @@ class AtualizarFilmeFragment: Fragment() {
         }
 
         binding.btnVerReviews.setOnClickListener {
-            val filmId = movie.id  // Aqui você pega o filme selecionado
+            val filmId = movie.id
             val bundle = Bundle().apply {
-                putString("filmId", filmId)  // Adiciona o filmId ao Bundle
+                putString("filmId", filmId)
             }
             findNavController().navigate(R.id.action_atualizarFilmeFragment_to_gestaoReviewFragment, bundle)
         }
@@ -127,20 +127,21 @@ class AtualizarFilmeFragment: Fragment() {
     private fun setupOndeAssistirRecyclerView(selectedPlataformas: List<String>) {
         val ondeAssistirAdapter = MoviesAdapter.OndeAssistirAdapter(
             Constants.ondeAssistirList,
-            selectedPlataformas
-        ) { plataforma, isChecked ->
-            if (isChecked) {
-                this.selectedPlataformas.add(plataforma.nome)
-            } else {
-                this.selectedPlataformas.remove(plataforma.nome)
+            selectedPlataformas,
+                { plataforma, isChecked ->
+                    if (isChecked) {
+                        this.selectedPlataformas.add(plataforma.nome)
+                    } else {
+                        this.selectedPlataformas.remove(plataforma.nome)
+                    }
+                },
+                isDetalhesFragment = false
+            )
+            binding.ondeAssistirRecyclerView.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = ondeAssistirAdapter
             }
-        }
-        binding.ondeAssistirRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = ondeAssistirAdapter
-        }
     }
-
 
     private fun openImagePicker() {
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply {

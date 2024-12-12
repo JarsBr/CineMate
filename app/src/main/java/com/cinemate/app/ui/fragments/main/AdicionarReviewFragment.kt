@@ -45,6 +45,7 @@ class AdicionarReviewFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        activity?.findViewById<View>(R.id.bottomNavigation)?.visibility = View.VISIBLE
         _binding = null
     }
 

@@ -40,7 +40,7 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
 
 
 
-    private fun fetchMovies() {
+    fun fetchMovies() {
         viewModelScope.launch {
             try {
                 val movies = movieRepository.getMovies() ?: emptyList()
