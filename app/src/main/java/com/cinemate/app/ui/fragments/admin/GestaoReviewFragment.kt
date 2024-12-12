@@ -17,7 +17,7 @@ class GestaoReviewFragment : Fragment() {
 
     private var _binding: FragmentGestaoReviewBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ReviewViewModel by viewModels() // Aqui é a inicialização do ViewModel
+    private val viewModel: ReviewViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +30,6 @@ class GestaoReviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Obtenha o filmId a partir do Bundle
         val filmId = arguments?.getString("filmId") ?: return
 
         viewModel.fetchReviews(filmId)
@@ -40,7 +39,7 @@ class GestaoReviewFragment : Fragment() {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = ReviewsAdapter(reviews) { review ->
                     val bundle = Bundle().apply {
-                        putString("reviewId", review.id) // Passa o ID da Review
+                        putString("reviewId", review.id)
                     }
                     findNavController().navigate(R.id.action_gestaoReviewFragment_to_gestaoRepostasFragment, bundle)
                 }

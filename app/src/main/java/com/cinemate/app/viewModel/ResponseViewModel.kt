@@ -21,7 +21,6 @@ class ResponseViewModel : ViewModel() {
     private val _selectedReview = MutableLiveData<Review>()
     val selectedReview: LiveData<Review> get() = _selectedReview
 
-    // Busca os detalhes de uma review específica
     fun fetchReviewById(idReview: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -34,12 +33,11 @@ class ResponseViewModel : ViewModel() {
         }
     }
 
-    // Busca todas as respostas associadas a uma review específica
     fun fetchRespostas(idReview: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val snapshot = db.collection("respostas")
-                    .whereEqualTo("idReview", idReview) // Garantir que o campo seja o correto
+                    .whereEqualTo("idReview", idReview)
                     .get()
                     .await()
 

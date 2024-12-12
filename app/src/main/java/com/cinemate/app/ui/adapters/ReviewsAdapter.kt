@@ -40,7 +40,6 @@ class ReviewsAdapter(
         holder.tvNota.text = "Nota: ${review.nota}"
         holder.tvNomeUsuario.text = "Por: ${review.nomeUsuario}"
 
-        // Converte o Timestamp para um formato legível
         val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
         val date = review.dataCriacao.toDate()
         holder.tvDataCriacao.text = "Data: ${dateFormat.format(date)}"

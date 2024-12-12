@@ -169,7 +169,7 @@ class DetalhesFilmeFragment : Fragment() {
     private fun openPublicarReviewFragment(movie: Movie) {
         val publicarReviewFragment = PublicarReviewFragment().apply {
             arguments = Bundle().apply {
-                putString("movieId", movie.id) // Certifique-se de que está passando o "movieId"
+                putString("movieId", movie.id)
             }
         }
 

@@ -39,8 +39,6 @@ class AdicionarReviewFragment : Fragment() {
 
 
         binding.buttonSubmitReview.setOnClickListener {
-//            Toast.makeText(requireContext(), "ERRROOOOOOO", Toast.LENGTH_SHORT).show()
-//            Log.d("ERROOOOOO", "ERROOOOOO")
             criarReview()
         }
     }

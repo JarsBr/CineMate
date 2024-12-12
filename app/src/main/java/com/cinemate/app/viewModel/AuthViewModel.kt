@@ -11,7 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class AuthViewModel : ViewModel() {
     val user = MutableLiveData<FirebaseUser?>()
     val userDetails = MutableLiveData<Map<String, Any?>>()
-    val userDocumentId = MutableLiveData<String>() // Adicionando LiveData para o ID do documento
+    val userDocumentId = MutableLiveData<String>()
 
     init {
         user.value = FirebaseAuth.getInstance().currentUser
@@ -69,7 +69,6 @@ class AuthViewModel : ViewModel() {
             return
         }
 
-        // Reautentica o usuário com a senha fornecida
         val credential = EmailAuthProvider.getCredential(currentUser.email!!, password)
         currentUser.reauthenticate(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {

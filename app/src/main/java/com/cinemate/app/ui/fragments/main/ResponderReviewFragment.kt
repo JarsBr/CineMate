@@ -12,6 +12,7 @@ import com.cinemate.app.data.models.Response
 import com.cinemate.app.databinding.FragmentResponderReviewBinding
 import com.cinemate.app.viewModel.ResponseViewModel
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 
 
 class ResponderReviewFragment : Fragment() {
@@ -32,27 +33,31 @@ class ResponderReviewFragment : Fragment() {
 
         activity?.findViewById<View>(R.id.bottomNavigation)?.visibility = View.GONE
 
-        // Pega o ID da review passado via argumentos
         val idReview = arguments?.getString("reviewId") ?: return
 
         binding.btnSubmeterResposta.setOnClickListener {
             val comentario = binding.etRespostaComentario.text.toString().trim()
+
             if (comentario.isNotEmpty()) {
-                // Criando a resposta
+                val idUsuario = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
                 val resposta = Response(
+                    id = idReview,
                     comentario = comentario,
                     idReview = idReview,
-                    dataCriacao = Timestamp.now()
+                    dataCriacao = Timestamp.now(),
+                    idUsuario = idUsuario
                 )
-                // Submetendo a resposta através do ViewModel
+
                 responseViewModel.submitResponse(resposta)
-                // Limpar o campo de comentário
+
                 binding.etRespostaComentario.text.clear()
             } else {
                 Toast.makeText(requireContext(), "Por favor, digite uma resposta.", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

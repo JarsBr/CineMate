@@ -33,27 +33,21 @@ class UsuariosCadastradosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializa o adapter com uma lista vazia
         adapter = UsersAdapter(emptyList())
 
-        // Configura o RecyclerView
         binding.recyclerViewUsuarios.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewUsuarios.adapter = adapter
 
-        // Observa a lista de usuários e atualiza o adapter
         userViewModel.users.observe(viewLifecycleOwner) { users ->
             if (users.isNotEmpty()) {
                 adapter.updateUsers(users)  // Atualiza a lista do adapter
             } else {
-                // Exibe uma mensagem ou algo se a lista estiver vazia
                 Toast.makeText(context, "Nenhum usuário encontrado", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Carrega os usuários do ViewModel
         userViewModel.fetchUsers()
 
-        // Filtro de pesquisa
         binding.searchInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {

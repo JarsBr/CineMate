@@ -40,10 +40,8 @@ class GestaoRepostasFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Certifique-se de que o reviewId é obtido corretamente
         reviewId = arguments?.getString("reviewId") ?: return
 
-        // Carregar as respostas para o reviewId
         responseViewModel.fetchRespostas(reviewId)
 
         responseViewModel.respostas.observe(viewLifecycleOwner) { respostas ->
@@ -53,7 +51,6 @@ class GestaoRepostasFragment : Fragment() {
                 this.adapter = adapter
             }
 
-            // Configurar swipe para deletar
             setupSwipeToDelete(binding.recyclerViewRespostas, adapter)
         }
     }
@@ -69,20 +66,16 @@ class GestaoRepostasFragment : Fragment() {
             .document(respostaId) // Usando o campo id da resposta
             .delete()
             .addOnSuccessListener {
-                // Excluir do Firestore foi bem-sucedido, agora remover do adapter
                 adapter.removeAt(position)
 
-                // Atualize a lista de respostas no ViewModel
                 responseViewModel.fetchRespostas(reviewId)
 
                 Log.d("GestaoRepostasFragment", "Resposta deletada com sucesso.")
-                // Exibir a mensagem de sucesso
                 Toast.makeText(requireContext(), "Resposta deletada com sucesso", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener { e ->
                 e.printStackTrace()
                 Log.e("GestaoRepostasFragment", "Erro ao deletar resposta: ${e.message}")
-                // Exibir a mensagem de erro
                 Toast.makeText(requireContext(), "Falha ao deletar a resposta", Toast.LENGTH_SHORT).show()
             }
     }
@@ -99,7 +92,6 @@ class GestaoRepostasFragment : Fragment() {
                 val position = viewHolder.bindingAdapterPosition
                 val resposta = adapter.getRespostaAt(position)
 
-                // Aqui, você deve usar o campo correto para deletar (como `resposta.id` ou outro ID de resposta).
                 deleteResposta(resposta.id, adapter, position) // Ajuste aqui para o ID correto
             }
 
@@ -117,7 +109,6 @@ class GestaoRepostasFragment : Fragment() {
                 val background = ColorDrawable(Color.RED)
                 val deleteIcon = recyclerView.context.getDrawable(R.drawable.ic_delete)
 
-                // Configuração do fundo vermelho
                 background.setBounds(
                     itemView.right + dX.toInt(),
                     itemView.top,
@@ -126,7 +117,6 @@ class GestaoRepostasFragment : Fragment() {
                 )
                 background.draw(c)
 
-                // Configuração do ícone de lixeira
                 deleteIcon?.let {
                     val iconMargin = (itemView.height - it.intrinsicHeight) / 2
                     val iconLeft = itemView.right - iconMargin - it.intrinsicWidth

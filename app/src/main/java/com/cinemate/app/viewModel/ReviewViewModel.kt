@@ -4,14 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.cinemate.app.data.models.Review // Certifique-se de usar o Review correto
-import com.cinemate.app.data.models.Response
+import com.cinemate.app.data.models.Review
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
+
 
 class ReviewViewModel : ViewModel() {
 

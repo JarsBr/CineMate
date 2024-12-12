@@ -31,17 +31,14 @@ class CadastroFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Configurações para o campo de data
         binding.dateInput.setOnClickListener {
             openDatePicker()
         }
 
-        // Configurar a ação do botão "Cadastre-se"
         binding.btnCadastro.setOnClickListener {
             handleRegister()
         }
 
-        // Configurar a ação do texto "Login"
         binding.loginText.setOnClickListener {
             val navController = requireActivity().findNavController(R.id.nav_host_fragment_main)
             navController.navigate(R.id.action_cadastroFragment_to_loginFragment)
@@ -50,13 +47,11 @@ class CadastroFragment : Fragment() {
     }
 
     private fun openDatePicker() {
-        // Obtém a data atual
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        // Configura o DatePickerDialog
         val datePickerDialog = DatePickerDialog(
             requireContext(),
             R.style.CustomDatePicker,
@@ -73,7 +68,6 @@ class CadastroFragment : Fragment() {
             setDimAmount(0.95f)
         }
 
-        // Exibe o DatePicker
         datePickerDialog.show()
     }
 
@@ -107,7 +101,6 @@ class CadastroFragment : Fragment() {
             return
         }
 
-        // Criar usuário no Firebase Authentication
         val auth = FirebaseAuth.getInstance()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -115,7 +108,6 @@ class CadastroFragment : Fragment() {
                     val currentUser = auth.currentUser
                     val userId = currentUser?.uid
 
-                    // Salvar dados no Firestore
                     val db = FirebaseFirestore.getInstance()
                     val userDocument = db.collection("usuarios").document(userId ?: "")
 
@@ -123,8 +115,8 @@ class CadastroFragment : Fragment() {
                         "nome" to name,
                         "email" to email,
                         "data_nascimento" to dateOfBirth,
-                        "tipo_usuario" to "user", // Definido como 'user' por padrão
-                        "filmes_favoritos" to listOf<String>() // Array vazio
+                        "tipo_usuario" to "user",
+                        "filmes_favoritos" to listOf<String>()
                     )
 
                     userDocument.set(userData).addOnCompleteListener { dbTask ->
