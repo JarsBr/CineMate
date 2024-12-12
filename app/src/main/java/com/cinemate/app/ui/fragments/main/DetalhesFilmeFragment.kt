@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.cinemate.app.R
 import com.cinemate.app.data.models.Movie
@@ -168,7 +169,7 @@ class DetalhesFilmeFragment : Fragment() {
     private fun openPublicarReviewFragment(movie: Movie) {
         val publicarReviewFragment = PublicarReviewFragment().apply {
             arguments = Bundle().apply {
-                putString("movieId", movie.id)
+                putString("movieId", movie.id) // Certifique-se de que está passando o "movieId"
             }
         }
 

@@ -85,6 +85,19 @@
         <action
             android:id="@+id/action_publicarReviewFragment_to_detalhesFilmeFragment"
             app:destination="@id/detalhesFilmeFragment" />
+        <action
+            android:id="@+id/action_publicarReviewFragment_to_adicionarReviewFragment"
+            app:destination="@id/adicionarReviewFragment" />
+        <action
+            android:id="@+id/action_publicarReviewFragment_to_respostasReviewFragment"
+            app:destination="@id/respostasReviewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/adicionarReviewFragment"
+        android:name="com.cinemate.app.ui.fragments.main.AdicionarReviewFragment"
+        android:label="fragment_adicionar_review"
+        tools:layout="@layout/fragment_adicionar_review">
     </fragment>
 
     <fragment
@@ -96,6 +109,7 @@
             android:id="@+id/action_responderReviewFragment_to_detalhesFilmeFragment"
             app:destination="@id/detalhesFilmeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/recomendarFilmeFragment"
         android:name="com.cinemate.app.ui.fragments.main.RecomendarFilmeFragment"
@@ -104,5 +118,14 @@
         <action
             android:id="@+id/action_recomendarFilmeFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/respostasReviewFragment"
+        android:name="com.cinemate.app.ui.fragments.main.RespostasReviewFragment"
+        android:label="fragment_respostas_review"
+        tools:layout="@layout/fragment_respostas_review" >
+        <action
+            android:id="@+id/action_respostasReviewFragment_to_publicarReviewFragment"
+            app:destination="@id/publicarReviewFragment" />
     </fragment>
 </navigation>

@@ -6,16 +6,30 @@ import com.google.firebase.Timestamp
 
 @Parcelize
 data class Review(
-    val comentario: String = "",
-    val dataCriacao: Long = System.currentTimeMillis(),
-    val idFilme: String = "",
-    val idUsuario: String = "",
-    val nota: Int = 0,
-    val nomeUsuario: String = "",
-    val id: String = ""
+    val comentario: String,
+    val dataCriacao: Timestamp,
+    val idFilme: String,
+    val idUsuario: String,
+    val nota: Int,
+    val nomeUsuario: String,
+    val id: String? = null
 ) : Parcelable {
-    fun toTimestamp(): Timestamp = Timestamp(dataCriacao / 1000, (dataCriacao % 1000).toInt())
+    fun toMap(): Map<String, Any> {
+        return mapOf(
+            "comentario" to comentario,
+            "data_criacao" to dataCriacao,
+            "id_filme" to idFilme,
+            "id_usuario" to idUsuario,
+            "nota" to nota,
+            "nome_usuario" to nomeUsuario
+        )
+    }
 }
+
+
+
+
+
 
 
 

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cinemate.app.R
 import com.cinemate.app.data.models.Review
+import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,7 +26,7 @@ class ReviewsAdapter(
         val tvComentario: TextView = itemView.findViewById(R.id.tvComentario)
         val tvNota: TextView = itemView.findViewById(R.id.tvNota)
         val tvDataCriacao: TextView = itemView.findViewById(R.id.tvDataCriacao)
-        val tvNomeUsuario: TextView = itemView.findViewById(R.id.tvNomeUsuario) // Referência ao novo TextView
+        val tvNomeUsuario: TextView = itemView.findViewById(R.id.tvNomeUsuario)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
@@ -37,16 +38,13 @@ class ReviewsAdapter(
         val review = reviews[position]
         holder.tvComentario.text = review.comentario
         holder.tvNota.text = "Nota: ${review.nota}"
-
-        // Exibe o nome do usuário
         holder.tvNomeUsuario.text = "Por: ${review.nomeUsuario}"
 
-        // Converte o Long (representando data) para um formato legível
+        // Converte o Timestamp para um formato legível
         val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-        val date = Date(review.dataCriacao)
+        val date = review.dataCriacao.toDate()
         holder.tvDataCriacao.text = "Data: ${dateFormat.format(date)}"
 
-        // Define a ação ao clicar em um item
         holder.itemView.setOnClickListener { onReviewClick(review) }
     }
 
